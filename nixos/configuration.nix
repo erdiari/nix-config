@@ -69,6 +69,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Docker - Requires user to be in docker group to use without sudo.
+  virtualisation.docker.enable = true;
+
 
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
@@ -141,11 +144,11 @@
 
   programs.zsh.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.erd = {
     isNormalUser = true;
     description = "erd";
-    extraGroups = [ "networkmanager" "wheel" ];
+    # docker group is for using docker as non-root user.
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYTI1tpVSUVQdLZE7AjUlrAr9OeX4Bl8HxMO6nbIFVZfugt90oNSLoxN1KlSmiaSa76OLFvz6e0IVz8i7Edj8ALB5WU5t//4B9Jxkf3GaLLrXZ/LAQmtqEAGb3lqHPTXTGkchn973NpnzARARuA8wnQ78zfFIZNwZ5SxfsJWWTdOalPW6B6JNE/w+pQDyIEXwi7edD43QvrRSFT++iQDObjP6mH603Fi0rbEZC69VTxQ7vtg40dUw31PnMnpCrixrujZkNTHgWjZRwWRkwoTW4kErxi3VE9u23FeYAxyzfK3rTkxejReWnkogcv/GfLQ43fYcclM4xMqwk7t+Ej4563IYREHMqw5o4B6IKqbg6/DWDw6yf5kMUhkRqhJC4kU9APVzk5eNCaLN9JurS7eGbQWsQll7LS3xyx5UgHGTF3AINQxAZRIG50lkbZUIyScT+8KK29wfh3eEP/IwJrWgVpXm3uEmljHJuisZvKapBgsbY43ze3Xag3hJIBOAcu88= erd@nixos"
     ];
