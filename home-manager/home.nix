@@ -47,16 +47,22 @@
   # environment.
   home.packages = with pkgs; [
     tilix
+    # Editors
     neovim
-    steam
+    emacs
+    # Apps
     flatpak
     gnome.gnome-software
-    emacs
+    # Terminal Apps
     ripgrep
     fd
     btop
     bat
+    # Gaming
+    steam
     heroic
+    gamemode
+    mangohud
   ];
 
 
