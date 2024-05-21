@@ -63,6 +63,11 @@
     heroic
     gamemode
     mangohud
+    # Gnome extensions
+    gnomeExtensions.pano
+    gnomeExtensions.tailscale-status
+    gnomeExtensions.syncthing-indicator
+    gnomeExtensions.gpu-profile-selector
   ];
 
 
