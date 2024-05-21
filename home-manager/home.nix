@@ -68,7 +68,6 @@
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
     userName = "Erdi ARI";

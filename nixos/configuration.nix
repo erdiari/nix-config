@@ -70,7 +70,10 @@
   networking.networkmanager.enable = true;
 
   # Docker - Requires user to be in docker group to use without sudo.
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true;
+  };
 
 
   # Set your time zone.
