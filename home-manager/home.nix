@@ -67,7 +67,7 @@
     gnomeExtensions.pano
     gnomeExtensions.tailscale-status
     gnomeExtensions.syncthing-indicator
-    gnomeExtensions.gpu-profile-selector
+    # gnomeExtensions.gpu-profile-selector
   ];
 
 
