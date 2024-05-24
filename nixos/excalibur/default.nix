@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
   ];
 
-  # networking.hostname = "excalibur";
+  networking.hostName = "excalibur";
 
   # Allows the usage of nvidia gpus in docker
   virtualisation.docker = {

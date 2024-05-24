@@ -79,6 +79,8 @@
     userEmail = "me@erdiari.dev";
   };
 
+  services.ssh-agent.enable = true;
+
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
