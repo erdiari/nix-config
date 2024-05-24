@@ -8,6 +8,11 @@
   ];
 
   networking.hostName = "excalibur";
+  
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
 
   # Allows the usage of nvidia gpus in docker
   virtualisation.docker = {

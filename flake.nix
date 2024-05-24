@@ -28,6 +28,12 @@
         # > Our main nixos configuration file <
         modules = [./nixos/excalibur];
       };
+      thinkpad = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        # > Our main nixos configuration file <
+        modules = [./nixos/thinkpad-t430];
+      };
     };
 
     # Standalone home-manager configuration entrypoint
