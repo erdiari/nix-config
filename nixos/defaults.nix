@@ -17,7 +17,7 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    ./hardware-configuration.nix
+    # ./hardware-configuration.nix
   ];
 
   nixpkgs = {
@@ -72,7 +72,6 @@
   # Docker - Requires user to be in docker group to use without sudo.
   virtualisation.docker = {
     enable = true;
-    enableNvidia = true;
   };
 
 
@@ -152,9 +151,9 @@
     description = "erd";
     # docker group is for using docker as non-root user.
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYTI1tpVSUVQdLZE7AjUlrAr9OeX4Bl8HxMO6nbIFVZfugt90oNSLoxN1KlSmiaSa76OLFvz6e0IVz8i7Edj8ALB5WU5t//4B9Jxkf3GaLLrXZ/LAQmtqEAGb3lqHPTXTGkchn973NpnzARARuA8wnQ78zfFIZNwZ5SxfsJWWTdOalPW6B6JNE/w+pQDyIEXwi7edD43QvrRSFT++iQDObjP6mH603Fi0rbEZC69VTxQ7vtg40dUw31PnMnpCrixrujZkNTHgWjZRwWRkwoTW4kErxi3VE9u23FeYAxyzfK3rTkxejReWnkogcv/GfLQ43fYcclM4xMqwk7t+Ej4563IYREHMqw5o4B6IKqbg6/DWDw6yf5kMUhkRqhJC4kU9APVzk5eNCaLN9JurS7eGbQWsQll7LS3xyx5UgHGTF3AINQxAZRIG50lkbZUIyScT+8KK29wfh3eEP/IwJrWgVpXm3uEmljHJuisZvKapBgsbY43ze3Xag3hJIBOAcu88= erd@nixos"
-    ];
+    # openssh.authorizedKeys.keys = [
+    #   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYTI1tpVSUVQdLZE7AjUlrAr9OeX4Bl8HxMO6nbIFVZfugt90oNSLoxN1KlSmiaSa76OLFvz6e0IVz8i7Edj8ALB5WU5t//4B9Jxkf3GaLLrXZ/LAQmtqEAGb3lqHPTXTGkchn973NpnzARARuA8wnQ78zfFIZNwZ5SxfsJWWTdOalPW6B6JNE/w+pQDyIEXwi7edD43QvrRSFT++iQDObjP6mH603Fi0rbEZC69VTxQ7vtg40dUw31PnMnpCrixrujZkNTHgWjZRwWRkwoTW4kErxi3VE9u23FeYAxyzfK3rTkxejReWnkogcv/GfLQ43fYcclM4xMqwk7t+Ej4563IYREHMqw5o4B6IKqbg6/DWDw6yf5kMUhkRqhJC4kU9APVzk5eNCaLN9JurS7eGbQWsQll7LS3xyx5UgHGTF3AINQxAZRIG50lkbZUIyScT+8KK29wfh3eEP/IwJrWgVpXm3uEmljHJuisZvKapBgsbY43ze3Xag3hJIBOAcu88= erd@nixos"
+    # ];
     packages = with pkgs; [
       firefox
       winetricks
@@ -187,85 +186,19 @@
     nerdfonts 
   ];
 
+  # do garbage collection weekly to keep disk usage low
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    dates = lib.mkDefault "weekly";
+    options = lib.mkDefault "--delete-older-than 7d";
+  };
+
+
   environment.variables.EDITOR = "nvim";
 
-
-  # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-
-    # Modesetting is required.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = true;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
-
-    # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-    
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
-
   # Power management and cpu scaling for laptops
-  powerManagement.enable = true;
+  # powerManagement.enable = true;
   services.thermald.enable = true;
-
-  services.tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 20;
-
-       #Optional helps save long term battery health
-       START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-       STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-
-      };
-};
-
 
   services.tailscale.enable = true;
 
