@@ -71,7 +71,6 @@
     # gnomeExtensions.gpu-profile-selector
   ];
 
-
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {

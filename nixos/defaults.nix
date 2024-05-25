@@ -59,7 +59,6 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
-
   # Flatpak
   services.flatpak.enable = true;
 
@@ -70,7 +69,6 @@
   virtualisation.docker = {
     enable = true;
   };
-
 
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
@@ -126,7 +124,6 @@
     #media-session.enable = true;
   };
 
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
@@ -147,11 +144,11 @@
     isNormalUser = true;
     description = "erd";
     # docker group is for using docker as non-root user.
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     packages = with pkgs; [
       firefox
       winetricks
-    #  thunderbird
+      #  thunderbird
     ];
     shell = pkgs.zsh;
   };
@@ -177,7 +174,7 @@
   ];
 
   fonts.packages = with pkgs; [
-    nerdfonts 
+    nerdfonts
   ];
 
   networking.firewall = {
@@ -185,13 +182,13 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = ["tailscale0"];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [config.services.tailscale.port];
 
     # allow you to SSH in over the public internet
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [22];
   };
 
   # do garbage collection weekly to keep disk usage low
@@ -200,7 +197,6 @@
   #   dates = lib.mkDefault "weekly";
   #   options = lib.mkDefault "--delete-older-than 7d";
   # };
-
 
   environment.variables.EDITOR = "nvim";
 

@@ -31,10 +31,10 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
-            {
-              environment.systemPackages = [alejandra.defaultPackage.${system}];
-            }
-            ./nixos/excalibur
+          {
+            environment.systemPackages = [alejandra.defaultPackage.${system}];
+          }
+          ./nixos/excalibur
         ];
       };
       thinkpad = nixpkgs.lib.nixosSystem rec {
