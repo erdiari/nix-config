@@ -58,6 +58,7 @@
     fd
     btop
     bat
+    yt-dlp
     # Gaming
     steam
     heroic
@@ -117,6 +118,7 @@
 
     shellAliases = {
       v = "nvim";
+      install-homemanager = "home-manager switch --flake ~/Documents/nix-config/home-manager/home.nix#default";
     };
   };
 
