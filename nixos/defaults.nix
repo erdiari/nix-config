@@ -171,6 +171,7 @@
     lshw
     wine
     wine64
+    easyeffects # Audio effects for PipeWire applications.
   ];
 
   fonts.packages = with pkgs; [
