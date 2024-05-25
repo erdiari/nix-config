@@ -9,11 +9,16 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Alejandra : nix formatter
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+    alejandra.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
+    alejandra,
     home-manager,
     ...
   } @ inputs: let
@@ -22,17 +27,25 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      excalibur = nixpkgs.lib.nixosSystem {
+      excalibur = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # > Our main nixos configuration file <
-        modules = [./nixos/excalibur];
+        modules = [
+            {
+              environment.systemPackages = [alejandra.defaultPackage.${system}];
+            }
+            ./nixos/excalibur
+        ];
       };
-      thinkpad = nixpkgs.lib.nixosSystem {
+      thinkpad = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # > Our main nixos configuration file <
-        modules = [./nixos/thinkpad-t430];
+        modules = [
+          {
+            environment.systemPackages = [alejandra.defaultPackage.${system}];
+          }
+          ./nixos/thinkpad-t430
+        ];
       };
     };
 

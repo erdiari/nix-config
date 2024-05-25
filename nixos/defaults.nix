@@ -207,8 +207,12 @@
   # Power management and cpu scaling for laptops
   # powerManagement.enable = true;
   services.thermald.enable = true;
-
   services.tailscale.enable = true;
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
 
   security.pam.services.erd.enableGnomeKeyring = true;
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
