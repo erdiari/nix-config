@@ -91,8 +91,8 @@
     LC_NAME = "tr_TR.UTF-8";
     LC_NUMERIC = "tr_TR.UTF-8";
     LC_PAPER = "tr_TR.UTF-8";
-  
-  LC_TELEPHONE = "tr_TR.UTF-8";
+
+    LC_TELEPHONE = "tr_TR.UTF-8";
     LC_TIME = "tr_TR.UTF-8";
   };
 
@@ -194,10 +194,9 @@
     trustedInterfaces = ["tailscale0"];
 
     # It is not necessary since we have set the following:
-    # `services.tailscale.openDefaultPorts = true` 
+    # `services.tailscale.openDefaultPorts = true`
     # # allow the Tailscale UDP port through the firewall
     # allowedUDPPorts = [ config.services.tailscale.port ];
-
   };
 
   # do garbage collection weekly to keep disk usage low

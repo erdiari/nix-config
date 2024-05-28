@@ -19,6 +19,8 @@
   virtualisation.docker = {
     enableNvidia = true;
   };
+  # Above will be deprecated later. Switch to option below
+  # virtualisation.containers.cdi.dynamic.nvidia.enable
 
   # Enable OpenGL
   hardware.opengl = {

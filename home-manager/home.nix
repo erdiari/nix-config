@@ -5,6 +5,7 @@
   lib,
   config,
   pkgs,
+  unstable-pkgs,
   ...
 }: {
   # You can import other home-manager modules here
@@ -43,6 +44,7 @@
     homeDirectory = "/home/erd";
   };
 
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -50,6 +52,8 @@
     # Editors
     neovim
     emacs
+    # Clipboard manager for nvim
+    xclip
     # Apps
     flatpak
     gnome.gnome-software
@@ -69,7 +73,10 @@
     gnomeExtensions.tailscale-status
     gnomeExtensions.syncthing-indicator
     # gnomeExtensions.gpu-profile-selector
+    # nixpkgs-unstable.conda
+    unstable-pkgs.python311Packages.conda
   ];
+  # ++ foo ;
 
   # Enable home-manager and git
   programs.home-manager.enable = true;

@@ -4,7 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable"
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-23.11";
@@ -18,14 +18,16 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     alejandra,
     home-manager,
     ...
   } @ inputs: let
     inherit (self) outputs;
+    unstable-pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
   in {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
+    home-manager.extraSpecialArgs = {inherit nixpkgs-unstable;};
+
     nixosConfigurations = {
       excalibur = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -37,7 +39,7 @@
           ./nixos/excalibur
         ];
       };
-      thinkpad = nixpkgs.lib.nixosSystem rec {
+      thinkpad-t430 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -54,7 +56,7 @@
     homeConfigurations = {
       default = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+        extraSpecialArgs = {inherit inputs outputs unstable-pkgs;};
         # > Our main home-manager configuration file <
         modules = [./home-manager/home.nix];
       };
