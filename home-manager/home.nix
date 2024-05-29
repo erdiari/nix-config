@@ -44,7 +44,6 @@
     homeDirectory = "/home/erd";
   };
 
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -74,7 +73,8 @@
     gnomeExtensions.syncthing-indicator
     # gnomeExtensions.gpu-profile-selector
     # nixpkgs-unstable.conda
-    unstable-pkgs.python311Packages.conda
+    unstable-pkgs.python3
+    unstable-pkgs.conda
   ];
   # ++ foo ;
 
