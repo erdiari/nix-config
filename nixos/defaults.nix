@@ -214,6 +214,7 @@
 
   services.syncthing = {
     enable = true;
+    # user = "erd";
     openDefaultPorts = true;
   };
 
