@@ -128,7 +128,7 @@
     };
   };
 
-  # services.syncthing.enable = true; # Moved to nixconfig since firewall stops syncing.
+  services.syncthing.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

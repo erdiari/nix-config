@@ -193,10 +193,9 @@
     # always allow traffic from your Tailscale network
     trustedInterfaces = ["tailscale0"];
 
-    # It is not necessary since we have set the following:
-    # `services.tailscale.openDefaultPorts = true`
-    # # allow the Tailscale UDP port through the firewall
-    # allowedUDPPorts = [ config.services.tailscale.port ];
+    # 22000 TCP/UDP and 21027 UDP ports are opened because of syncthing
+    allowedUDPPorts = [22000 21027];
+    allowedTCPPorts = [22000];
   };
 
   # do garbage collection weekly to keep disk usage low
@@ -212,11 +211,10 @@
     useRoutingFeatures = "client";
   };
 
-  services.syncthing = {
-    enable = true;
-    # user = "erd";
-    openDefaultPorts = true;
-  };
+  # services.syncthing = {
+  #   enable = true;
+  #   openDefaultPorts = true;
+  # };
 
   programs.weylus = {
     enable = true;
