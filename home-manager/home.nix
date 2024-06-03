@@ -75,6 +75,7 @@
     # nixpkgs-unstable.conda
     unstable-pkgs.python3
     unstable-pkgs.conda
+    ollama
   ];
   # ++ foo ;
 
@@ -125,6 +126,7 @@
     shellAliases = {
       v = "nvim";
       install-homemanager = "home-manager switch --flake ~/Documents/nix-config/home-manager/home.nix#default";
+      doom = "./.emacs.d/bin/doom";
     };
   };
 
