@@ -180,6 +180,7 @@
     wine
     wine64
     easyeffects # Audio effects for PipeWire applications.
+    gnome-network-displays
   ];
 
   fonts.packages = with pkgs; [

@@ -56,6 +56,7 @@
     # Apps
     flatpak
     gnome.gnome-software
+    mpv
     # Terminal Apps
     ripgrep
     fd
@@ -75,7 +76,7 @@
     # nixpkgs-unstable.conda
     unstable-pkgs.python3
     unstable-pkgs.conda
-    ollama
+    # ollama
   ];
   # ++ foo ;
 
@@ -85,6 +86,7 @@
     enable = true;
     userName = "Erdi ARI";
     userEmail = "me@erdiari.dev";
+    lfs.enable = true;
   };
 
   services.ssh-agent.enable = true;
