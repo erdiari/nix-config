@@ -51,6 +51,7 @@
     # Editors
     neovim
     emacs
+    vscodium-fhs
     # Clipboard manager for nvim
     xclip
     # Apps
