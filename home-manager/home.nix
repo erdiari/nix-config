@@ -64,6 +64,8 @@
     btop
     bat
     yt-dlp
+    pandoc
+    tectonic
     # Gaming
     steam
     heroic
