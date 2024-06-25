@@ -67,8 +67,9 @@
     pandoc
     tectonic
     yazi
+    ueberzugpp
     # Gaming
-    # steam
+    steam
     heroic
     gamemode
     mangohud
