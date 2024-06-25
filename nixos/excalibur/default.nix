@@ -2,6 +2,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -40,7 +41,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
@@ -71,6 +72,24 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  # Built also with sync setting for gaming-time
+  # Source: https://youtu.be/qlfm3MEbqYA
+  specialisation = {
+    gaming-time.configuration = {
+
+      hardware.nvidia = {
+        powerManagement.finegrained = lib.mkForce false;
+        prime.sync.enable = lib.mkForce true;
+        prime.offload = {
+          enable = lib.mkForce false;
+          enableOffloadCmd = lib.mkForce false;
+        };
+      };
+
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     cudaPackages.cudatoolkit
   ];
