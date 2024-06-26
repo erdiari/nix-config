@@ -77,7 +77,6 @@
   # Source: https://youtu.be/qlfm3MEbqYA
   specialisation = {
     gaming-time.configuration = {
-
       hardware.nvidia = {
         powerManagement.finegrained = lib.mkForce false;
         prime.sync.enable = lib.mkForce true;
@@ -86,7 +85,6 @@
           enableOffloadCmd = lib.mkForce false;
         };
       };
-
     };
   };
 
