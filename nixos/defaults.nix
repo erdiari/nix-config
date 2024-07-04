@@ -44,7 +44,13 @@
 
   # Flatpak
   services.flatpak.enable = true;
-
+  
+  # Enable kdeconnect using gsconnect
+  programs.kdeconnect = {
+    enable = true;
+    package = pkgs.gnomeExtensions.gsconnect;
+  };
+  
   # Enable networking
   networking.networkmanager.enable = true;
 

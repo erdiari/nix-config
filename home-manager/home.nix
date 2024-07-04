@@ -110,11 +110,6 @@
 
   services.syncthing.enable = true;
 
-  services.kdeconnect = {
-    enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
-  };
-
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
