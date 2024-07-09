@@ -32,6 +32,7 @@
     neovim
     emacs
     vscodium-fhs
+    vscode
     # Clipboard manager for nvim
     xclip
     # Apps
