@@ -39,6 +39,7 @@
     flatpak
     gnome.gnome-software
     mpv
+    affine
     # Terminal Apps
     ripgrep
     fd
