@@ -217,6 +217,10 @@
     '';
   };
 
+# Enable nix-ld
+# For more information: https://github.com/Mic92/nix-ld
+  programs.nix-ld.enable = true;
+
   security.pam.services.erd.enableGnomeKeyring = true;
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

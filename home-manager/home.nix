@@ -27,7 +27,6 @@
   };
 
   home.packages = with pkgs; [
-    tilix
     # Editors
     neovim
     emacs
@@ -41,6 +40,7 @@
     mpv
     affine
     # Terminal Apps
+    tilix
     ripgrep
     fd
     btop
@@ -56,14 +56,12 @@
     gamemode
     mangohud
     # Gnome extensions
-    gnomeExtensions.pano
     gnomeExtensions.tailscale-status
     gnomeExtensions.syncthing-indicator
-    # gnomeExtensions.gpu-profile-selector
-    # nixpkgs-unstable.conda
+    unstable-pkgs.gnomeExtensions.pano
+    # Python
     unstable-pkgs.python3
     unstable-pkgs.conda
-    # ollama
   ];
 
   # Enable home-manager and git
