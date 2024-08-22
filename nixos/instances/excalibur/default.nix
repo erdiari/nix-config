@@ -1,4 +1,3 @@
-# This is specalized config for a single computer
 {
   config,
   pkgs,

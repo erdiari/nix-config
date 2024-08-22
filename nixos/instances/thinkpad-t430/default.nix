@@ -6,6 +6,7 @@
 }: {
   imports = [
     ../defaults.nix
+    ../../modules/hyperland.nix
     ./hardware-configuration.nix
   ];
 
