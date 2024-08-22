@@ -41,6 +41,13 @@
       options = "--delete-older-than 7d";
     };
   };
+  
+  # Added cachix so that we wont have to compile everything.
+  # TODO: Add other substituters in the future. Especially for python with torch.
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
 
   # Flatpak
   services.flatpak.enable = true;
