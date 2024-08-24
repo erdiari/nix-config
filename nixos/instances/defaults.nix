@@ -169,7 +169,8 @@
     bottles
     easyeffects # Audio effects for PipeWire applications.
     gnome-network-displays
-    mullvad-vpn
+    python310
+    (poetry.override { python3 = python310; })
   ];
 
   fonts.packages = with pkgs; [
