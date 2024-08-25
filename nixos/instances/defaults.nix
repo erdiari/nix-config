@@ -171,6 +171,7 @@
     gnome-network-displays
     python310
     (poetry.override { python3 = python310; })
+    uv
   ];
 
   fonts.packages = with pkgs; [
