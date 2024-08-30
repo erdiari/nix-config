@@ -8,24 +8,22 @@
     xwayland.enable = true;
   };
 
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # If gnome is installed, this is defined. No need to define twice
+    # extraPortals = [
+    #   pkgs.xdg-desktop-portal-gtk
+    # ];
+  };
+
   environment.sessionVariables = {
     # If your cursor becomes invisible
     WLR_NO_HARDWARE_CURSORS = "1";
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
   };
-
-  hardware = {
-    # Opengl
-    opengl.enable = true;
-
-    # Most wayland compositors need this
-    nvidia.modesetting.enable = true;
-  };
-
-  # XDG portal
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -35,13 +33,17 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
-    rofi-wayland
-    kitty
-    # If you want to include waybar with experimental features:
+    hyprland
+    swww # for wallpapers
+    playerctl # for multimedia control
+    xwayland # for opening x-apps
+    dunst # for messages
+    rofi-wayland # opening apps
+    kitty # default terminal
+    networkmanagerapplet # for controlling network
     (waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     }))
