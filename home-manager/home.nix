@@ -50,6 +50,8 @@
     tectonic
     yazi
     ueberzugpp
+    eza
+    fzf
     # Gaming
     steam
     heroic
@@ -104,6 +106,9 @@
       v = "nvim";
       install-homemanager = "home-manager switch --flake ~/Documents/nix-config/home-manager/home.nix#default";
       doom = "./.emacs.d/bin/doom";
+      ls = "eza --icons=always";
+      lt = "ls -T";
+      la = "ls -al";
     };
   };
 
