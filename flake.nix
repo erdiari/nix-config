@@ -19,7 +19,6 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
-    alejandra,
     home-manager,
     ...
   } @ inputs: let
