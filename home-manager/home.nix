@@ -5,17 +5,7 @@
   pkgs,
   unstable-pkgs,
   ...
-}: 
-let
-  external_config = pkgs.copyPathToStore ./external-config;
-  # debug = builtins.trace "Current directory: ${builtins.toString ./.}" true;
-  # debugExternalConfig = builtins.trace "external_config contents: ${builtins.toString (builtins.readDir ./external_config)}" true;
-  # externalConfig = 
-  #   if builtins.pathExists ./external_config
-  #   then builtins.path { path = ./external_config; name = "external_config"; }
-  #   else throw "external_config directory not found at ${toString ./external_config}";
-in 
-{
+}: {
   imports = [
   ];
 
@@ -174,11 +164,10 @@ in
 
   # # Configurations -> Will use symbolic links to configure
   home.file."${config.xdg.configHome}" = {
-  # home.file.".config" = {
-    source = external_config;
+    source = ./external-config;
     recursive = true;
   };
-  
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
 }
