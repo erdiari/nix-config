@@ -173,24 +173,24 @@
   systemd.user.startServices = "sd-switch";
 
   # # Configurations -> Will use symbolic links to configure
-  # home.file."${config.xdg.configHome}" = {
-  #   source = ./external-config;
-  #   recursive = true;
-  # };
-  home.file =
-    let
-      configDir = ./external-config;
-      toPath = name: "${config.xdg.configHome}/${name}";
-    in
-    lib.mapAttrs'
-      (name: _: {
-        name = toPath name;
-        value.source = config.lib.file.mkOutOfStoreSymlink "${configDir}/${name}";
-      })
-      (lib.filterAttrs
-        (name: type: type == "directory")
-        (builtins.readDir configDir));
-
+  home.file.".config" = {
+    source = ./external-config;
+    recursive = true;
+  };
+    # let
+    #   configDir=./external-config;
+    # in
+    # builtins.listToAttrs (
+    #   builtins.map
+    #     (name: {
+    #       name = ".config/${name}";
+    #       value = {
+    #         source = config.lib.file.mkOutOfStoreSymlink "${configDir}/${name}";
+    #         recursive = true;
+    #       };
+    #     })
+    #     (builtins.attrNames (builtins.readDir configDir))
+    # );
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
