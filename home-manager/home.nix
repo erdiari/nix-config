@@ -32,6 +32,7 @@
     vscode
     # Clipboard manager for nvim
     xclip
+    wl-clipboard
     # Apps
     flatpak
     gnome.gnome-software
