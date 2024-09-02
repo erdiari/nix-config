@@ -7,10 +7,14 @@
   ...
 }: {
   imports = [
+    inputs.nvchad4nix.homeManagerModule
   ];
 
   nixpkgs = {
     overlays = [
+      (final: prev: {
+        nvchad = inputs.nvchad4nix.packages."${pkgs.system}".nvchad;
+      })
     ];
     config = {
       allowUnfree = true;
@@ -26,7 +30,8 @@
 
   home.packages = with pkgs; [
     # Editors
-    neovim
+    # nvchad
+    # inputs.nvchad4nix.packages.${pkgs.system}.nvchad
     emacs
     vscodium-fhs
     vscode
@@ -78,6 +83,12 @@
   };
 
   services.ssh-agent.enable = true;
+
+  # NvChad -> Neovim config
+  programs.nvchad = {
+     enable = true;
+     neovim = unstable-pkgs.neovim;
+  };
 
   # starship - an customizable prompt for any shell
   programs.starship = {
