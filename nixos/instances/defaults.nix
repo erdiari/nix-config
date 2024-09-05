@@ -173,6 +173,7 @@
     (poetry.override { python3 = python310; })
     # uv
     mangohud
+    veikk-linux-driver-gui # Drawing tablet driver
   ];
 
   fonts.packages = with pkgs; [

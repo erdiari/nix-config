@@ -58,6 +58,7 @@
     fzf
     zoxide
     cliphist
+    brightnessctl
     # Gaming
     steam
     heroic
@@ -184,8 +185,6 @@
 
   services.syncthing.enable = true;
 
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
 
   # # Configurations -> Will use symbolic links to configure
   home.file.".config" = {
@@ -206,6 +205,9 @@
     #     })
     #     (builtins.attrNames (builtins.readDir configDir))
     # );
+
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";

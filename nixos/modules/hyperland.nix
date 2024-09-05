@@ -8,7 +8,14 @@
     xwayland.enable = true;
   };
 
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
+  };
+
   services.dbus.enable = true;
+  services.dbus.packages = [ pkgs.gcr ];
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -42,6 +49,11 @@
     xwayland # for opening x-apps
     dunst # for messages
     rofi-wayland # opening apps
+    bemoji # rofi emoji plugin
+    rofi-rbw-wayland # rofi bitwarden plugin
+    rbw # bitwarden cli
+    pinentry-gnome3 # required for rbw
+    gcr
     kitty # default terminal
     networkmanagerapplet # for controlling network
     (waybar.overrideAttrs (oldAttrs: {
