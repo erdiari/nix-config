@@ -171,7 +171,8 @@
     gnome-network-displays
     python310
     (poetry.override { python3 = python310; })
-    uv
+    # uv
+    mangohud
   ];
 
   fonts.packages = with pkgs; [
@@ -205,8 +206,10 @@
 
   # Gaming stuff
   programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
-  programs.gamemode.enable = true;
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
 
   programs.weylus = {
     enable = true;
