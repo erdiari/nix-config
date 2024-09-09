@@ -180,31 +180,28 @@
         };
         file = "zsh-syntax-highlighting.zsh";
       }
+      {
+        name = "fzf-tab";
+        src = pkgs.fetchFromGitHub {
+          owner = "Aloxaf";
+          repo = "fzf-tab";
+          rev = "c2b4aa5ad2532cca91f23908ac7f00efb7ff09c9";
+          sha256 = "1b4pksrc573aklk71dn2zikiymsvq19bgvamrdffpf7azpq6kxl2";
+        };
+      }
    ];
   };
 
   services.syncthing.enable = true;
 
+  # Enable blueman applet if blueman is enabled
+  services.blueman-applet.enable = lib.mkIf (config.nixosConfig.services.blueman.enable or false) true;
 
   # # Configurations -> Will use symbolic links to configure
   home.file.".config" = {
     source = ./external-config;
     recursive = true;
   };
-    # let
-    #   configDir=./external-config;
-    # in
-    # builtins.listToAttrs (
-    #   builtins.map
-    #     (name: {
-    #       name = ".config/${name}";
-    #       value = {
-    #         source = config.lib.file.mkOutOfStoreSymlink "${configDir}/${name}";
-    #         recursive = true;
-    #       };
-    #     })
-    #     (builtins.attrNames (builtins.readDir configDir))
-    # );
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
