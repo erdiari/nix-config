@@ -35,6 +35,9 @@
     emacs
     vscodium-fhs
     vscode
+    # For screenshots
+    grim
+    slurp
     # Clipboard manager for nvim
     xclip
     wl-clipboard
@@ -59,6 +62,7 @@
     zoxide
     cliphist
     brightnessctl
+    poweralertd
     # Gaming
     steam
     heroic

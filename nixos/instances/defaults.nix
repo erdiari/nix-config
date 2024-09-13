@@ -49,6 +49,9 @@
   # Flatpak
   services.flatpak.enable = true;
 
+  # Stylix -> Auto styling
+  stylix.enable = true;
+
   # Enable kdeconnect using gsconnect
   programs.kdeconnect = {
     enable = true;
