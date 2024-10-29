@@ -95,6 +95,14 @@
      neovim = unstable-pkgs.neovim;
   };
 
+  # NCspot -> Ncurses spotify client
+  programs.ncspot = {
+    enable = true;
+    settings = {
+      use_nerdfont=true;
+    };
+  };
+
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
@@ -200,6 +208,9 @@
 
   # Enable blueman applet if blueman is enabled
   services.blueman-applet.enable = lib.mkIf (config.nixosConfig.services.blueman.enable or false) true;
+
+  # Enable kdeconnect indicator if kdeconnect is enabled
+  services.kdeconnect.indicator = lib.mkIf (config.nixosConfig.services.blueman.enable or false) true;
 
   # # Configurations -> Will use symbolic links to configure
   home.file.".config" = {

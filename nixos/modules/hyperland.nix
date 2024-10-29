@@ -15,6 +15,7 @@
 
   services.dbus.enable = true;
   services.dbus.packages = [ pkgs.gcr ];
+  services.xserver.updateDbusEnvironment = true;  # This ensures that necessary environment variables are set
 
   xdg.portal = {
     enable = true;

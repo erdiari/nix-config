@@ -48,14 +48,29 @@
 
   # Flatpak
   services.flatpak.enable = true;
+  #
+  # # Stylix -> Auto styling
+  # stylix.enable = true;
+  #
+  # mullvad-vpn
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
+  networking.nameservers = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
 
-  # Stylix -> Auto styling
-  stylix.enable = true;
+  services.resolved = {
+    enable = true;
+    dnssec = "true";
+    domains = [ "~." ];
+    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+    dnsovertls = "true";
+  };
+
 
   # Enable kdeconnect using gsconnect
   programs.kdeconnect = {
     enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
+    # indicator = true;
+    # package = pkgs.gnomeExtensions.gsconnect;
   };
 
   # Enable networking
@@ -65,6 +80,7 @@
   virtualisation.docker = {
     enable = true;
   };
+
 
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
