@@ -101,6 +101,7 @@
     settings = {
       use_nerdfont=true;
     };
+    package = unstable-pkgs.ncspot; # There is bug in previous versions of ncspot which makes it unusable
   };
 
   # starship - an customizable prompt for any shell
