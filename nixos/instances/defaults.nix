@@ -49,22 +49,24 @@
   # Flatpak
   services.flatpak.enable = true;
   #
-  # # Stylix -> Auto styling
-  # stylix.enable = true;
-  #
+  # # # Stylix -> Auto styling
+  # stylix = {
+  #   enable = true;
+  #   targets.greetd.enable = false;  # Disable Stylix's greetd/regreet styling
+  # };
+  # #
   # mullvad-vpn
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.package = pkgs.mullvad-vpn;
-  networking.nameservers = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+  networking.nameservers = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
 
   services.resolved = {
     enable = true;
     dnssec = "true";
-    domains = [ "~." ];
-    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+    domains = ["~."];
+    fallbackDns = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
     dnsovertls = "true";
   };
-
 
   # Enable kdeconnect using gsconnect
   programs.kdeconnect = {
@@ -80,7 +82,6 @@
   virtualisation.docker = {
     enable = true;
   };
-
 
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
@@ -159,13 +160,14 @@
     # docker group is for using docker as non-root user.
     extraGroups = ["networkmanager" "wheel" "docker"];
     packages = with pkgs; [
-      firefox
+      # firefox
+      floorp
       winetricks
       #  thunderbird
     ];
     shell = pkgs.zsh;
   };
-  
+
   # Disabled autologin since it was not unlocking keyrings and was asking for password anyway
   # # Enable automatic login for the user.
   # services.xserver.displayManager.autoLogin.enable = true;
@@ -189,7 +191,7 @@
     easyeffects # Audio effects for PipeWire applications.
     gnome-network-displays
     python310
-    (poetry.override { python3 = python310; })
+    (poetry.override {python3 = python310;})
     # uv
     mangohud
     veikk-linux-driver-gui # Drawing tablet driver

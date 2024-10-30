@@ -11,8 +11,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Stylix
-    stylix.url = "github:danth/stylix";
-    # stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.url = "github:danth/stylix/release-24.05";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     # NvChad -> Neovim config
     nvchad4nix = {
@@ -31,19 +31,25 @@
   } @ inputs: let
     inherit (self) outputs;
     unstable-pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+    commonModules = [
+      ./nixos/instances/defaults.nix
+      
+      stylix.nixosModules.stylix
+      ./nixos/modules/stylix.nix
+    ];
   in {
-    home-manager.extraSpecialArgs = {inherit nixpkgs-unstable;};
+    # home-manager.extraSpecialArgs = {inherit nixpkgs-unstable;};
 
     nixosConfigurations = {
       excalibur = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        modules = [ stylix.nixosModules.stylix ./nixos/instances/excalibur ];
+        modules = commonModules ++ [./nixos/instances/excalibur];
       };
       thinkpad-t430 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        modules = [ stylix.nixosModules.stylix ./nixos/instances/thinkpad-t430 ];
+        modules = commonModules ++ [./nixos/instances/thinkpad-t430];
       };
     };
 
@@ -52,7 +58,7 @@
       erd = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs unstable-pkgs;};
-        modules = [ ./home-manager/home.nix ];
+        modules = [ stylix.homeManagerModules.stylix ./home-manager/home.nix];
       };
     };
   };

@@ -8,6 +8,7 @@
 }: {
   imports = [
     inputs.nvchad4nix.homeManagerModule
+    ../nixos/modules/stylix.nix
   ];
 
   nixpkgs = {
@@ -46,6 +47,7 @@
     gnome.gnome-software
     mpv
     affine
+    vesktop
     # Terminal Apps
     tilix
     ripgrep
@@ -91,15 +93,15 @@
 
   # NvChad -> Neovim config
   programs.nvchad = {
-     enable = true;
-     neovim = unstable-pkgs.neovim;
+    enable = true;
+    neovim = unstable-pkgs.neovim;
   };
 
   # NCspot -> Ncurses spotify client
   programs.ncspot = {
     enable = true;
     settings = {
-      use_nerdfont=true;
+      use_nerdfont = true;
     };
     package = unstable-pkgs.ncspot; # There is bug in previous versions of ncspot which makes it unusable
   };
@@ -125,8 +127,8 @@
       enable_audio_bell = false;
       mouse_hide_wait = "-1.0";
       window_padding_width = 10;
-      background_opacity = "0.5";
-      background_blur = 5;
+      # background_opacity = "0.5";
+      # background_blur = 5;
     };
   };
 
@@ -140,7 +142,7 @@
   #   #   return config
   #   # '';
   # };
-  
+
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
@@ -202,7 +204,7 @@
           sha256 = "1b4pksrc573aklk71dn2zikiymsvq19bgvamrdffpf7azpq6kxl2";
         };
       }
-   ];
+    ];
   };
 
   services.syncthing.enable = true;
