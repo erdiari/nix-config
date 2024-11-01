@@ -31,8 +31,6 @@
 
   home.packages = with pkgs; [
     # Editors
-    # nvchad
-    # inputs.nvchad4nix.packages.${pkgs.system}.nvchad
     emacs
     vscodium-fhs
     vscode
@@ -48,6 +46,7 @@
     mpv
     affine
     vesktop
+    brave
     # Terminal Apps
     tilix
     ripgrep
