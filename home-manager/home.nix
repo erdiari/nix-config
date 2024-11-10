@@ -5,7 +5,8 @@
   pkgs,
   unstable-pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.nvchad4nix.homeManagerModule
     ../nixos/modules/stylix.nix
@@ -148,6 +149,12 @@
     enableZshIntegration = true;
   };
 
+  programs.direnv = {
+      enableZshIntegration = true;
+      enable = true;
+      nix-direnv.enable = true;
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -210,7 +217,8 @@
   services.syncthing.enable = true;
 
   # Enable blueman applet if blueman is enabled
-  services.blueman-applet.enable = lib.mkIf (config.nixosConfig.services.blueman.enable or false) true;
+  services.blueman-applet.enable = lib.mkIf (config.nixosConfig.services.blueman.enable or false
+  ) true;
 
   # Enable kdeconnect indicator if kdeconnect is enabled
   services.kdeconnect.indicator = lib.mkIf (config.nixosConfig.services.blueman.enable or false) true;
