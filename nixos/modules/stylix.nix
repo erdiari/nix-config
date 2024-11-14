@@ -12,7 +12,10 @@
   };
   polarity = "dark"; # "light" or "dark"
 
-  # # Base colors
+  # Base colors
+  # https://tinted-theming.github.io/base16-gallery/
+  base16Scheme = "${pkgs.base16-schemes}/share/themes/monokai.yaml";
+
   # base16Scheme = {
   #   base00 = "1e1e2e"; # Base background
   #   base01 = "181825"; # Lighter background (status bars)
