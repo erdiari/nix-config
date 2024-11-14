@@ -41,13 +41,12 @@
     grim
     slurp
     # Clipboard manager for nvim
-    xclip
-    wl-clipboard
+    # xclip #X-server
+    wl-clipboard #Wayland
     # Apps
     flatpak
-    gnome.gnome-software
+    # gnome.gnome-software
     mpv
-    affine
     vesktop
     # Terminal Apps
     tilix
@@ -71,13 +70,8 @@
     heroic
     gamemode
     mangohud
-    # Gnome extensions
-    gnomeExtensions.tailscale-status
-    gnomeExtensions.syncthing-indicator
-    unstable-pkgs.gnomeExtensions.pano
     # Python
     unstable-pkgs.python3
-    unstable-pkgs.conda
     unstable-pkgs.wezterm
   ];
 

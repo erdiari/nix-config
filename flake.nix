@@ -1,5 +1,5 @@
 {
-  description = "Your new nix config";
+  description = "Global Flake File";
 
   inputs = {
     # Nixpkgs
@@ -33,13 +33,10 @@
     unstable-pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
     commonModules = [
       ./nixos/instances/defaults.nix
-      
       stylix.nixosModules.stylix
       ./nixos/modules/stylix.nix
     ];
   in {
-    # home-manager.extraSpecialArgs = {inherit nixpkgs-unstable;};
-
     nixosConfigurations = {
       excalibur = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";

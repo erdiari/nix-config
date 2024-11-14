@@ -46,6 +46,7 @@
   environment.systemPackages = with pkgs; [
     hyprland
     swww # for wallpapers
+    # hyprpaper # for wallpapers
     playerctl # for multimedia control
     xwayland # for opening x-apps
     dunst # for messages
