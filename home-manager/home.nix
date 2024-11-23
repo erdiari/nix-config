@@ -37,6 +37,7 @@
     emacs
     vscodium-fhs
     vscode
+    geany
     # For screenshots
     grim
     slurp
@@ -47,6 +48,7 @@
     flatpak
     # gnome.gnome-software
     mpv
+    deadbeef # music player
     vesktop
     # Terminal Apps
     tilix
