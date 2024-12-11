@@ -6,6 +6,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
 
   programs.gnupg.agent = {
