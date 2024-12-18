@@ -48,6 +48,11 @@
         specialArgs = {inherit inputs outputs;};
         modules = commonModules ++ [./nixos/instances/thinkpad-t430];
       };
+      desktop = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules = commonModules ++ [./nixos/instances/desktop];
+      };
     };
 
     # Standalone home-manager configuration entrypoint
