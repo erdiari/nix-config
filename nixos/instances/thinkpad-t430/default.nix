@@ -16,4 +16,7 @@
   boot.loader.grub.useOSProber = true;
 
   networking.hostName = "thinkpad-t430";
+
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  system.stateVersion = "23.05";
 }
