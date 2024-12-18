@@ -34,8 +34,6 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  # Enable sound with pipewire.
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

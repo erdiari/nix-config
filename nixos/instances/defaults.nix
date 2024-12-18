@@ -56,9 +56,11 @@
   # };
   # #
   # mullvad-vpn
-  services.mullvad-vpn.enable = true;
-  services.mullvad-vpn.package = pkgs.mullvad-vpn;
+  # services.mullvad-vpn.enable = true;
+  # services.mullvad-vpn.package = pkgs.mullvad-vpn;
   networking.nameservers = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
+
+  services.cloudflare-warp.enable = true;
 
   services.resolved = {
     enable = true;
@@ -111,8 +113,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "tr";
-    xkbVariant = "";
+    xkb.layout = "tr";
+    xkb.variant = "";
   };
 
   # Configure console keymap
@@ -121,8 +123,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -150,7 +150,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   programs.zsh.enable = true;
 
@@ -190,8 +190,8 @@
     bottles
     easyeffects # Audio effects for PipeWire applications.
     gnome-network-displays
-    python310
-    (poetry.override {python3 = python310;})
+    # python310
+    # (poetry.override {python3 = python310;})
     # uv
     mangohud
     veikk-linux-driver-gui # Drawing tablet driver

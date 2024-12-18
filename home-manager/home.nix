@@ -129,17 +129,6 @@
     };
   };
 
-  # # Wezterm - terminal with better settings
-  # programs.wezterm = {
-  #   enable = true;
-  #   enableZshIntegration = true;
-  #   # extraConfig = ''
-  #   #   local config = wezterm.config_builder()
-  #   #   config.enable_wayland = true
-  #   #   return config
-  #   # '';
-  # };
-
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;

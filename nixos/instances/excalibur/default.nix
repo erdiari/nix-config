@@ -20,18 +20,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Allows the usage of nvidia gpus in docker
-  virtualisation.docker = {
-    enableNvidia = true;
-  };
+  hardware.nvidia-container-toolkit.enable = true;
+
   # Above will be deprecated later. Switch to option below
   # virtualisation.containers.cdi.dynamic.nvidia.enable
 
   # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
