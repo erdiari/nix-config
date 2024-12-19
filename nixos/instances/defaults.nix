@@ -189,6 +189,7 @@
     mangohud
     bottles
     easyeffects # Audio effects for PipeWire applications.
+    pwvucontrol # Audio volume controller for pipewire
     gnome-network-displays
     # python310
     # (poetry.override {python3 = python310;})
