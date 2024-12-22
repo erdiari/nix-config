@@ -15,6 +15,8 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
+  services.thermald.enable = true;
+
   networking.hostName = "thinkpad-t430";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

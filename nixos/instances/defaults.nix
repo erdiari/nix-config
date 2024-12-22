@@ -162,6 +162,7 @@
     packages = with pkgs; [
       # firefox
       floorp
+      brave
       winetricks
       #  thunderbird
     ];
@@ -178,7 +179,7 @@
   # systemd.services."autovt@tty1".enable = false;
 
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim 
     wget
     git
     coreutils # basic GNU utilities
@@ -191,9 +192,6 @@
     easyeffects # Audio effects for PipeWire applications.
     pwvucontrol # Audio volume controller for pipewire
     gnome-network-displays
-    # python310
-    # (poetry.override {python3 = python310;})
-    # uv
     mangohud
     veikk-linux-driver-gui # Drawing tablet driver
   ];
@@ -220,7 +218,6 @@
 
   # Power management and cpu scaling for laptops
   # powerManagement.enable = true;
-  services.thermald.enable = true;
   services.tailscale = {
     enable = true;
     openFirewall = true;
@@ -234,11 +231,11 @@
     capSysNice = true;
   };
 
-  programs.weylus = {
-    enable = true;
-    openFirewall = true;
-    users = ["erd"];
-  };
+  # programs.weylus = {
+  #   enable = true;
+  #   openFirewall = true;
+  #   users = ["erd"];
+  # };
 
   # TMUX: Terminal multiplexer
   programs.tmux = {
@@ -250,9 +247,9 @@
     '';
   };
 
-  # Enable nix-ld
-  # For more information: https://github.com/Mic92/nix-ld
-  programs.nix-ld.enable = true;
+  # # Enable nix-ld
+  # # For more information: https://github.com/Mic92/nix-ld
+  # programs.nix-ld.enable = true;
 
   security.pam.services.erd.enableGnomeKeyring = true;
 }
