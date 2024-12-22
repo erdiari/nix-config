@@ -60,7 +60,7 @@
   # services.mullvad-vpn.package = pkgs.mullvad-vpn;
   networking.nameservers = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
 
-  services.cloudflare-warp.enable = true;
+  # services.cloudflare-warp.enable = true;
 
   services.resolved = {
     enable = true;
