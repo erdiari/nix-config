@@ -32,12 +32,11 @@
 
   home.packages = with pkgs; [
     # Editors
-    # nvchad
-    # inputs.nvchad4nix.packages.${pkgs.system}.nvchad
     emacs
-    vscodium-fhs
     vscode
     geany
+    neovide
+    zed-editor
     # For screenshots
     grim
     slurp
@@ -200,13 +199,6 @@
   };
 
   services.syncthing.enable = true;
-
-  # Enable blueman applet if blueman is enabled
-  services.blueman-applet.enable = lib.mkIf (config.nixosConfig.services.blueman.enable or false
-  ) true;
-
-  # Enable kdeconnect indicator if kdeconnect is enabled
-  services.kdeconnect.indicator = lib.mkIf (config.nixosConfig.services.blueman.enable or false) true;
 
   # # Configurations -> Will use symbolic links to configure
   home.file.".config" = {

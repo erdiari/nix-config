@@ -26,10 +26,6 @@
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
-      # Added cachix so that we wont have to compile everything.
-      # TODO: Add other substituters in the future. Especially for python with torch.
-      substituters = ["https://hyprland.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
     # Opinionated: disable channels
     channel.enable = false;
@@ -48,19 +44,8 @@
 
   # Flatpak
   services.flatpak.enable = true;
-  #
-  # # # Stylix -> Auto styling
-  # stylix = {
-  #   enable = true;
-  #   targets.greetd.enable = false;  # Disable Stylix's greetd/regreet styling
-  # };
-  # #
-  # mullvad-vpn
-  # services.mullvad-vpn.enable = true;
-  # services.mullvad-vpn.package = pkgs.mullvad-vpn;
-  networking.nameservers = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
 
-  # services.cloudflare-warp.enable = true;
+  networking.nameservers = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
 
   services.resolved = {
     enable = true;
@@ -73,8 +58,6 @@
   # Enable kdeconnect using gsconnect
   programs.kdeconnect = {
     enable = true;
-    # indicator = true;
-    # package = pkgs.gnomeExtensions.gsconnect;
   };
 
   # Enable networking
@@ -160,23 +143,12 @@
     # docker group is for using docker as non-root user.
     extraGroups = ["networkmanager" "wheel" "docker"];
     packages = with pkgs; [
-      # firefox
       floorp
       brave
       winetricks
-      #  thunderbird
     ];
     shell = pkgs.zsh;
   };
-
-  # Disabled autologin since it was not unlocking keyrings and was asking for password anyway
-  # # Enable automatic login for the user.
-  # services.xserver.displayManager.autoLogin.enable = true;
-  # services.xserver.displayManager.autoLogin.user = "erd";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  # systemd.services."getty@tty1".enable = false;
-  # systemd.services."autovt@tty1".enable = false;
 
   environment.systemPackages = with pkgs; [
     vim 
@@ -212,8 +184,6 @@
     allowedTCPPorts = [22000];
   };
 
-  # do garbage collection weekly to keep disk usage low
-
   environment.variables.EDITOR = "nvim";
 
   # Power management and cpu scaling for laptops
@@ -231,12 +201,6 @@
     capSysNice = true;
   };
 
-  # programs.weylus = {
-  #   enable = true;
-  #   openFirewall = true;
-  #   users = ["erd"];
-  # };
-
   # TMUX: Terminal multiplexer
   programs.tmux = {
     enable = true;
@@ -246,10 +210,6 @@
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
     '';
   };
-
-  # # Enable nix-ld
-  # # For more information: https://github.com/Mic92/nix-ld
-  # programs.nix-ld.enable = true;
 
   security.pam.services.erd.enableGnomeKeyring = true;
 }
