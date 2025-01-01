@@ -57,6 +57,20 @@
     cudaPackages.cudatoolkit
   ];
 
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      "public" = {
+        "path" = "/mnt/depo_1/public";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "comment" = "Erd file share";
+      };
+    };
+  };
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.11";
 }

@@ -55,10 +55,8 @@
     dnsovertls = "true";
   };
 
-  # Enable kdeconnect using gsconnect
-  programs.kdeconnect = {
-    enable = true;
-  };
+  # Enable kdeconnect
+  programs.kdeconnect = { enable = true; };
 
   # Enable networking
   networking.networkmanager.enable = true;

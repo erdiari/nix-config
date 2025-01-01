@@ -64,7 +64,7 @@
 
     "clock#time": {
         "interval": 1,
-        // "format": "{:%H:%M:%S}", 
+        // "format": "{:%H:%M:%S}",
         "format": "{:%H:%M}",
         "tooltip": false
     },
@@ -135,6 +135,7 @@
     "temperature": {
       "critical-threshold": 80,
       "interval": 5,
+      "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
       "format": "{icon}  {temperatureC}°C",
       "format-icons": [
           "", // Icon: temperature-empty
