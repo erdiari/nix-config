@@ -1,19 +1,8 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  unstable-pkgs,
-  ...
-}:
-{
-  imports = [
-    ../nixos/modules/stylix.nix
-  ];
+{ inputs, lib, config, pkgs, unstable-pkgs, ... }: {
+  imports = [ ../nixos/modules/stylix.nix ];
 
   nixpkgs = {
-    overlays = [
-    ];
+    overlays = [ ];
     config = {
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
@@ -37,12 +26,13 @@
     # LSPs
     ruff
     basedpyright
+    nixfmt
     # For screenshots
     grim
     slurp
     # Clipboard manager for nvim
     # xclip #X-server
-    wl-clipboard #Wayland
+    wl-clipboard # Wayland
     # Apps
     flatpak
     # gnome.gnome-software
@@ -89,10 +79,9 @@
   # NCspot -> Ncurses spotify client
   programs.ncspot = {
     enable = true;
-    settings = {
-      use_nerdfont = true;
-    };
-    package = unstable-pkgs.ncspot; # There is bug in previous versions of ncspot which makes it unusable
+    settings = { use_nerdfont = true; };
+    package =
+      unstable-pkgs.ncspot; # There is bug in previous versions of ncspot which makes it unusable
   };
 
   # starship - an customizable prompt for any shell
@@ -127,9 +116,9 @@
   };
 
   programs.direnv = {
-      enableZshIntegration = true;
-      enable = true;
-      nix-direnv.enable = true;
+    enableZshIntegration = true;
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   programs.zsh = {
@@ -146,7 +135,8 @@
 
     shellAliases = {
       v = "nvim";
-      install-homemanager = "home-manager switch --flake ~/Documents/nix-config/home-manager/home.nix#default";
+      install-homemanager =
+        "home-manager switch --flake ~/Documents/nix-config/home-manager/home.nix#default";
       doom = "./.emacs.d/bin/doom";
       ls = "eza --icons=always";
       lt = "ls -T";

@@ -16,55 +16,51 @@
 
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    home-manager,
-    stylix,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    unstable-pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
-    commonModules = [
-      ./nixos/instances/defaults.nix
-      stylix.nixosModules.stylix
-      ./nixos/modules/stylix.nix
-    ];
-  in {
-    nixConfig = {
-      extra-substituters = [
-        "https://nix-community.cachix.org" "https://hyprland.cachix.org"
+  outputs =
+    { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, ... }@inputs:
+    let
+      inherit (self) outputs;
+      unstable-pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+      commonModules = [
+        ./nixos/instances/defaults.nix
+        stylix.nixosModules.stylix
+        ./nixos/modules/stylix.nix
       ];
-      extra-trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
-    };
-    nixosConfigurations = {
-      excalibur = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = commonModules ++ [./nixos/instances/excalibur];
+    in {
+      nixConfig = {
+        extra-substituters =
+          [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" ];
+        extra-trusted-public-keys = [
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        ];
       };
-      thinkpad-t430 = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = commonModules ++ [./nixos/instances/thinkpad-t430];
+      nixosConfigurations = {
+        excalibur = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = commonModules ++ [ ./nixos/instances/excalibur ];
+        };
+        thinkpad-t430 = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = commonModules ++ [ ./nixos/instances/thinkpad-t430 ];
+        };
+        desktop = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = commonModules ++ [ ./nixos/instances/desktop ];
+        };
       };
-      desktop = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = commonModules ++ [./nixos/instances/desktop];
-      };
-    };
 
-    # Standalone home-manager configuration entrypoint
-    homeConfigurations = {
-      erd = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs unstable-pkgs;};
-        modules = [ stylix.homeManagerModules.stylix ./home-manager/home.nix];
+      # Standalone home-manager configuration entrypoint
+      homeConfigurations = {
+        erd = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs unstable-pkgs; };
+          modules =
+            [ stylix.homeManagerModules.stylix ./home-manager/home.nix ];
+        };
       };
     };
-  };
 }

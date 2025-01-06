@@ -1,23 +1,12 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
-  imports = [
-  ];
+{ inputs, lib, config, pkgs, ... }: {
+  imports = [ ];
 
   nixpkgs = {
-    overlays = [
-    ];
-    config = {
-      allowUnfree = true;
-    };
+    overlays = [ ];
+    config = { allowUnfree = true; };
   };
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+  nix = let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
     settings = {
       # Enable flakes and new 'nix' command
@@ -31,7 +20,7 @@
     channel.enable = false;
 
     # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
     # garbage collection
@@ -45,13 +34,14 @@
   # Flatpak
   services.flatpak.enable = true;
 
-  networking.nameservers = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
+  networking.nameservers =
+    [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
 
   services.resolved = {
     enable = true;
     dnssec = "true";
-    domains = ["~."];
-    fallbackDns = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
+    domains = [ "~." ];
+    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
     dnsovertls = "true";
   };
 
@@ -62,9 +52,7 @@
   networking.networkmanager.enable = true;
 
   # Docker - Requires user to be in docker group to use without sudo.
-  virtualisation.docker = {
-    enable = true;
-  };
+  virtualisation.docker = { enable = true; };
 
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
@@ -139,17 +127,13 @@
     isNormalUser = true;
     description = "erd";
     # docker group is for using docker as non-root user.
-    extraGroups = ["networkmanager" "wheel" "docker"];
-    packages = with pkgs; [
-      floorp
-      brave
-      winetricks
-    ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    packages = with pkgs; [ floorp brave winetricks ];
     shell = pkgs.zsh;
   };
 
   environment.systemPackages = with pkgs; [
-    vim 
+    vim
     wget
     git
     coreutils # basic GNU utilities
@@ -166,20 +150,18 @@
     veikk-linux-driver-gui # Drawing tablet driver
   ];
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-  ];
+  fonts.packages = with pkgs; [ nerdfonts ];
 
   networking.firewall = {
     # enable the firewall
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = ["tailscale0"];
+    trustedInterfaces = [ "tailscale0" ];
 
     # 22000 TCP/UDP and 21027 UDP ports are opened because of syncthing
-    allowedUDPPorts = [22000 21027];
-    allowedTCPPorts = [22000];
+    allowedUDPPorts = [ 22000 21027 ];
+    allowedTCPPorts = [ 22000 ];
   };
 
   environment.variables.EDITOR = "nvim";

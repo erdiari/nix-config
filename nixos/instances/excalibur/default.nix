@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{ config, pkgs, lib, ... }: {
   imports = [
     ../defaults.nix
     ../../modules/hyperland.nix
@@ -29,7 +24,7 @@
   hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -86,9 +81,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    cudaPackages.cudatoolkit
-  ];
+  environment.systemPackages = with pkgs; [ cudaPackages.cudatoolkit ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

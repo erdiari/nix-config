@@ -1,9 +1,5 @@
 # This is specalized config for a single computer
-{
-  config,
-  pkgs,
-  ...
-}: {
+{ config, pkgs, ... }: {
   imports = [
     ../defaults.nix
     ../../modules/hyperland.nix

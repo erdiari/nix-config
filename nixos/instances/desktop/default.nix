@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{ config, pkgs, lib, ... }: {
   imports = [
     ../defaults.nix
     ../../modules/hyperland.nix
@@ -27,7 +22,7 @@
   hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -43,7 +38,6 @@
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
 
-
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
@@ -52,10 +46,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
-
-  environment.systemPackages = with pkgs; [
-    cudaPackages.cudatoolkit
-  ];
+  environment.systemPackages = with pkgs; [ cudaPackages.cudatoolkit ];
 
   services.samba = {
     enable = true;
