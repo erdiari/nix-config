@@ -138,7 +138,7 @@
       v = "nvim";
       install-homemanager =
         "home-manager switch --flake ~/Documents/nix-config/home-manager/home.nix#default";
-      doom = "./.emacs.d/bin/doom";
+      doom = "~/.emacs.d/bin/doom";
       ls = "eza --icons=always";
       lt = "ls -T";
       la = "ls -al";
@@ -184,9 +184,18 @@
 
   services.syncthing.enable = true;
 
+  # lorri for faster direnv
+  services.lorri.enable = true;
+
   # # Configurations -> Will use symbolic links to configure
   home.file.".config" = {
     source = ./external-config;
+    recursive = true;
+  };
+
+  # doom emacs configuration, requires manual installation of doom emacs
+  home.file.".doom.d" = {
+    source = ./doom.d;
     recursive = true;
   };
 
