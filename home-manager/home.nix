@@ -23,10 +23,11 @@
     neovide
     zed-editor
     unstable-pkgs.neovim
-    # LSPs
+    # LSPs and formatter and stuff
     ruff
     basedpyright
     nixfmt
+    nil
     # For screenshots
     grim
     slurp
