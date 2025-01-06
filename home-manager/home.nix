@@ -8,15 +8,11 @@
 }:
 {
   imports = [
-    inputs.nvchad4nix.homeManagerModule
     ../nixos/modules/stylix.nix
   ];
 
   nixpkgs = {
     overlays = [
-      (final: prev: {
-        nvchad = inputs.nvchad4nix.packages."${pkgs.system}".nvchad;
-      })
     ];
     config = {
       allowUnfree = true;
@@ -37,6 +33,10 @@
     geany
     neovide
     zed-editor
+    unstable-pkgs.neovim
+    # LSPs
+    ruff
+    basedpyright
     # For screenshots
     grim
     slurp
@@ -73,7 +73,6 @@
     mangohud
     # Python
     unstable-pkgs.python3
-    unstable-pkgs.wezterm
   ];
 
   # Enable home-manager and git
@@ -86,12 +85,6 @@
   };
 
   services.ssh-agent.enable = true;
-
-  # NvChad -> Neovim config
-  programs.nvchad = {
-    enable = true;
-    neovim = unstable-pkgs.neovim;
-  };
 
   # NCspot -> Ncurses spotify client
   programs.ncspot = {
