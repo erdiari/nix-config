@@ -29,24 +29,20 @@
     in {
       nixConfig = {
         extra-substituters =
-          [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" ];
+          [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" "https://devenv.cachix.org" ];
         extra-trusted-public-keys = [
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+          "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         ];
       };
       nixosConfigurations = {
-        excalibur = nixpkgs.lib.nixosSystem rec {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = commonModules ++ [ ./nixos/instances/excalibur ];
-        };
-        thinkpad-t430 = nixpkgs.lib.nixosSystem rec {
+        thinkpad-t430 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
           modules = commonModules ++ [ ./nixos/instances/thinkpad-t430 ];
         };
-        desktop = nixpkgs.lib.nixosSystem rec {
+        desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
           modules = commonModules ++ [ ./nixos/instances/desktop ];

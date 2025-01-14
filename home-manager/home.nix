@@ -28,6 +28,12 @@
     basedpyright
     nixfmt
     nil
+    shfmt
+    shellcheck
+    devenv
+    # Python
+    unstable-pkgs.python3
+    uv
     # For screenshots
     grim
     slurp
@@ -62,8 +68,6 @@
     heroic
     gamemode
     mangohud
-    # Python
-    unstable-pkgs.python3
   ];
 
   # Enable home-manager and git

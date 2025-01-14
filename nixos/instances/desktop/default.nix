@@ -7,9 +7,6 @@
 
   networking.hostName = "desktop";
 
-  # Blueman -> Bluetooth manager
-  services.blueman.enable = true;
-
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
