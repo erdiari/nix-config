@@ -68,6 +68,17 @@
     heroic
     gamemode
     mangohud
+    # Core utilities
+    gnutar
+    gzip
+    bzip2
+    xz
+    zip
+    unzip
+    p7zip
+    unrar
+    zstd
+    file  # for file type detection
   ];
 
   # Enable home-manager and git
@@ -150,6 +161,117 @@
 
     initExtra = ''
       eval "$(zoxide init zsh)"
+
+      extract() {
+          if [ -z "$1" ]; then
+              echo "Usage: extract <archive_file>"
+              return 1
+          fi
+
+          if [ ! -f "$1" ]; then
+              echo "Error: '$1' is not a valid file"
+              return 1
+          fi
+
+          # Get the file extension
+          filename=$(basename "$1")
+          extension="''${filename##*.}"
+          extension=$(echo "$extension" | tr '[:upper:]' '[:lower:]')
+
+          case "$extension" in
+              "tar")
+                  tar xf "$1"
+                  ;;
+              "gz" | "tgz")
+                  if [[ "$filename" = *.tar.gz || "$filename" = *.tgz ]]; then
+                      tar xzf "$1"
+                  else
+                      gunzip "$1"
+                  fi
+                  ;;
+              "bz2" | "tbz2")
+                  if [[ "$filename" = *.tar.bz2 || "$filename" = *.tbz2 ]]; then
+                      tar xjf "$1"
+                  else
+                      bunzip2 "$1"
+                  fi
+                  ;;
+              "xz" | "txz")
+                  if [[ "$filename" = *.tar.xz || "$filename" = *.txz ]]; then
+                      tar xJf "$1"
+                  else
+                      xz -d "$1"
+                  fi
+                  ;;
+              "zip")
+                  unzip "$1"
+                  ;;
+              "7z")
+                  7z x "$1"
+                  ;;
+              "rar")
+                  unrar x "$1"
+                  ;;
+              "z")
+                  uncompress "$1"
+                  ;;
+              "lzma")
+                  unlzma "$1"
+                  ;;
+              "zst")
+                  zstd -d "$1"
+                  ;;
+              *)
+                  # Try to detect the format using file command
+                  file_type=$(file -b "$1")
+                  case "$file_type" in
+                      *"XZ compressed data"*)
+                          xz -d "$1"
+                          ;;
+                      *"gzip compressed data"*)
+                          gunzip "$1"
+                          ;;
+                      *"bzip2 compressed data"*)
+                          bunzip2 "$1"
+                          ;;
+                      *"Zip archive data"*)
+                          unzip "$1"
+                          ;;
+                      *"7-zip archive data"*)
+                          7z x "$1"
+                          ;;
+                      *"RAR archive data"*)
+                          unrar x "$1"
+                          ;;
+                      *"Zstandard compressed data"*)
+                          zstd -d "$1"
+                          ;;
+                      *)
+                          echo "Error: Unknown archive format for '$1'"
+                          return 1
+                          ;;
+                  esac
+                  ;;
+          esac
+
+          # Check if extraction was successful
+          if [ $? -eq 0 ]; then
+              echo "Successfully extracted '$1'"
+              return 0
+          else
+              echo "Error: Extraction failed for '$1'"
+              return 1
+          fi
+      }
+
+      # Add command completion for the extract function
+      _extract_complete() {
+          local cur=''${COMP_WORDS[COMP_CWORD]}
+          local exts='tar gz tgz bz2 tbz2 xz txz zip 7z rar z lzma zst'
+          COMPREPLY=( $(compgen -f -X '!*.@('"''${exts// /|}"')' -- "$cur") )
+      }
+
+      complete -F _extract_complete extract
     '';
 
     plugins = with pkgs; [
