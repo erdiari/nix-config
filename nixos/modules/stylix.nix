@@ -2,9 +2,9 @@
   stylix = {
     enable = true;
     image = pkgs.fetchurl {
-      url = "https://github.com/erdiari/nix-config/blob/main/wp.jpg?raw=true";
+      url = "https://github.com/erdiari/nix-config/blob/main/wp.png?raw=true";
       sha256 =
-        "330a5725faec86c5ec3ad147d45015cfc72bf1e2141c4d9862d1f490f48305ce";
+        "sha256-TGB+YWYfsGrFEF1laCB55zyOrct3eFGKGgFfhLYF8V0=";
     };
     polarity = "dark"; # "light" or "dark"
 

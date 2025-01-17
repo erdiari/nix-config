@@ -42,6 +42,11 @@
           specialArgs = { inherit inputs outputs; };
           modules = commonModules ++ [ ./nixos/instances/thinkpad-t430 ];
         };
+        hp = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = commonModules ++ [ ./nixos/instances/hp ];
+        };
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };

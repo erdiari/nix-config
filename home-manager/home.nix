@@ -271,7 +271,7 @@
           COMPREPLY=( $(compgen -f -X '!*.@('"''${exts// /|}"')' -- "$cur") )
       }
 
-      complete -F _extract_complete extract
+      # complete -F _extract_complete extract
     '';
 
     plugins = with pkgs; [
