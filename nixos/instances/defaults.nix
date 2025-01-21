@@ -29,6 +29,9 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
+    extraOptions = ''
+      trusted-users = root erd
+    '';
   };
 
   # Flatpak
