@@ -15,7 +15,8 @@
     fonts = {
       monospace = {
         package = pkgs.nerdfonts;
-        name = "Agave Nerd Font";
+        name = "Source Code Pro";
+        # name = "Agave Nerd Font";
       };
     };
   };

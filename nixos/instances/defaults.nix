@@ -32,6 +32,13 @@
     extraOptions = ''
       trusted-users = root erd
     '';
+    settings.auto-optimise-store = true;
+  };
+  
+  # Auto update
+  system.autoUpgrade = {
+    enable = true;
+    dates = "weekly";
   };
 
   # Flatpak
@@ -55,7 +62,20 @@
   networking.networkmanager.enable = true;
 
   # Docker - Requires user to be in docker group to use without sudo.
-  virtualisation.docker = { enable = true; };
+
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
 
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
@@ -130,7 +150,7 @@
     isNormalUser = true;
     description = "erd";
     # docker group is for using docker as non-root user.
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ floorp brave winetricks ];
     shell = pkgs.zsh;
   };
@@ -148,9 +168,11 @@
     bottles
     easyeffects # Audio effects for PipeWire applications.
     pwvucontrol # Audio volume controller for pipewire
-    gnome-network-displays
+    # gnome-network-displays
     mangohud
     veikk-linux-driver-gui # Drawing tablet driver
+    podman-compose
+    podman-tui
   ];
 
   fonts.packages = with pkgs; [ nerdfonts ];
