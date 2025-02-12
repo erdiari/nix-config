@@ -31,6 +31,7 @@
         // "custom/keyboard-layout",
         "battery",
         "tray",
+        "mpris",
         "wireplumber",
         "backlight",
         "clock#date",
@@ -61,7 +62,18 @@
         ],
         "tooltip": true
     },
-
+    "mpris": {
+      "format": " {status_icon} {dynamic}",
+      "interval": 1,
+      "dynamic-len": 40,
+      "status-icons": {
+        "playing": "▶",
+        "paused": "⏸",
+        "stopped": ""
+      },
+      "dynamic-order": ["title", "artist"],
+      "ignored-players": ["firefox"]
+    },
     "clock#time": {
         "interval": 1,
         // "format": "{:%H:%M:%S}",

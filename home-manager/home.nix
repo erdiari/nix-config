@@ -1,4 +1,5 @@
 { inputs, lib, config, pkgs, unstable-pkgs, ... }: {
+
   imports = [ ../nixos/modules/stylix.nix ];
 
   nixpkgs = {
@@ -20,8 +21,6 @@
     emacs
     vscode
     geany
-    neovide
-    zed-editor
     unstable-pkgs.neovim
     # LSPs and formatter and stuff
     ruff
@@ -42,6 +41,8 @@
     wl-clipboard # Wayland
     # Apps
     flatpak
+    libreoffice-qt6-fresh
+    spotify
     # gnome.gnome-software
     mpv
     deadbeef # music player
@@ -68,7 +69,7 @@
     heroic
     gamemode
     mangohud
-    # Core utilities
+    # Archive utilities
     gnutar
     gzip
     bzip2
