@@ -25,13 +25,13 @@
     // "modules-center": [ ],
     "modules-right": [
         // "network",
+        "mpris",
         "memory",
         "cpu",
         "temperature",
         // "custom/keyboard-layout",
         "battery",
         "tray",
-        "mpris",
         "wireplumber",
         "backlight",
         "clock#date",
@@ -63,7 +63,7 @@
         "tooltip": true
     },
     "mpris": {
-      "format": " {status_icon} {dynamic}",
+      "format": "{status_icon} {dynamic}",
       "interval": 1,
       "dynamic-len": 40,
       "status-icons": {
