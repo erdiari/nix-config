@@ -41,6 +41,7 @@
     wl-clipboard # Wayland
     # Apps
     flatpak
+    obsidian
     libreoffice-qt6-fresh
     spotify
     # gnome.gnome-software
