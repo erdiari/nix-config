@@ -2,34 +2,61 @@
   description = "Global Flake File";
 
   inputs = {
-    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Stylix
-    stylix.url = "github:danth/stylix/release-24.11";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
-
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:danth/stylix/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, ... }@inputs:
     let
       inherit (self) outputs;
-      unstable-pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+      systems = [ "x86_64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      
+      # Create a consistent pkgs for each system
+      pkgsFor = system: import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      
+      unstablePkgsFor = system: import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      
+      # Shared modules for all NixOS configurations
       commonModules = [
         ./nixos/instances/defaults.nix
         stylix.nixosModules.stylix
         ./nixos/modules/stylix.nix
       ];
+      
+      # Function to create a NixOS configuration
+      mkNixosConfig = { system ? "x86_64-linux", hostname, extraModules ? [] }: 
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { 
+            inherit inputs outputs;
+            pkgs = pkgsFor system;
+            unstable-pkgs = unstablePkgsFor system;
+          };
+          modules = commonModules ++ [ ./nixos/instances/${hostname} ] ++ extraModules;
+        };
     in {
       nixConfig = {
-        extra-substituters =
-          [ "https://nix-community.cachix.org" "https://hyprland.cachix.org" "https://devenv.cachix.org" "https://cuda-maintainers.cachix.org" ];
+        extra-substituters = [
+          "https://nix-community.cachix.org"
+          "https://hyprland.cachix.org"
+          "https://devenv.cachix.org"
+          "https://cuda-maintainers.cachix.org"
+        ];
         extra-trusted-public-keys = [
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -37,31 +64,25 @@
           "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
         ];
       };
+      
       nixosConfigurations = {
-        thinkpad-t430 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = commonModules ++ [ ./nixos/instances/thinkpad-t430 ];
-        };
-        hp = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = commonModules ++ [ ./nixos/instances/hp ];
-        };
-        desktop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = commonModules ++ [ ./nixos/instances/desktop ];
-        };
+        thinkpad-t430 = mkNixosConfig { hostname = "thinkpad-t430"; };
+        hp = mkNixosConfig { hostname = "hp"; };
+        desktop = mkNixosConfig { hostname = "desktop"; };
       };
 
-      # Standalone home-manager configuration entrypoint
+      # Home-manager configuration that uses the same pkgs as NixOS
       homeConfigurations = {
         erd = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs unstable-pkgs; };
-          modules =
-            [ stylix.homeManagerModules.stylix ./home-manager/home.nix ];
+          pkgs = pkgsFor "x86_64-linux";
+          extraSpecialArgs = { 
+            inherit inputs outputs;
+            unstable-pkgs = unstablePkgsFor "x86_64-linux";
+          };
+          modules = [ 
+            stylix.homeManagerModules.stylix 
+            ./home-manager/home.nix 
+          ];
         };
       };
     };

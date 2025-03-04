@@ -82,6 +82,10 @@
     zstd
     file  # for file type detection
   ];
+  # ++ [ unstable-pkgs.nushellPlugins.skim
+  #   unstable-pkgs.nushellPlugins.polars
+  #   unstable-pkgs.nushellPlugins.gstat
+  # ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
@@ -97,9 +101,10 @@
   # NCspot -> Ncurses spotify client
   programs.ncspot = {
     enable = true;
-    settings = { use_nerdfont = true; };
-    package =
-      unstable-pkgs.ncspot; # There is bug in previous versions of ncspot which makes it unusable
+    settings = { use_nerdfond = true; cover.enable=true; };
+    package = unstable-pkgs.ncspot.override {
+      withCover = true;
+    };
   };
 
   # starship - an customizable prompt for any shell
@@ -137,6 +142,11 @@
     enableZshIntegration = true;
     enable = true;
     nix-direnv.enable = true;
+  };
+
+  programs.nushell = {
+    enable = true;
+    package = unstable-pkgs.nushell;
   };
 
   programs.zsh = {
@@ -265,15 +275,6 @@
               return 1
           fi
       }
-
-      # Add command completion for the extract function
-      _extract_complete() {
-          local cur=''${COMP_WORDS[COMP_CWORD]}
-          local exts='tar gz tgz bz2 tbz2 xz txz zip 7z rar z lzma zst'
-          COMPREPLY=( $(compgen -f -X '!*.@('"''${exts// /|}"')' -- "$cur") )
-      }
-
-      # complete -F _extract_complete extract
     '';
 
     plugins = with pkgs; [
