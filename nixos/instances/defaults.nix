@@ -44,10 +44,10 @@
   # Flatpak
   services.flatpak.enable = true;
 
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-  };
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "cuda";
+  # };
 
   networking.nameservers =
     [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
@@ -103,6 +103,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  # services.displayManager.ly.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;

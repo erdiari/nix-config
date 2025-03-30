@@ -32,6 +32,7 @@
     devenv
     # Python
     unstable-pkgs.python3
+    # unstable-pkgs.python3Packages.torch-bin
     uv
     # For screenshots
     grim
@@ -44,6 +45,7 @@
     obsidian
     libreoffice-qt6-fresh
     spotify
+    typst # => For Documents
     # gnome.gnome-software
     mpv
     deadbeef # music player
