@@ -19,9 +19,9 @@
   home.packages = with pkgs; [
     # Editors
     emacs
-    vscode
     geany
     unstable-pkgs.neovim
+    unstable-pkgs.windsurf
     # LSPs and formatter and stuff
     ruff
     basedpyright
