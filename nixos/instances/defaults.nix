@@ -44,11 +44,6 @@
   # Flatpak
   services.flatpak.enable = true;
 
-  # services.ollama = {
-  #   enable = true;
-  #   acceleration = "cuda";
-  # };
-
   networking.nameservers =
     [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
 
@@ -108,6 +103,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -179,6 +175,7 @@
     veikk-linux-driver-gui # Drawing tablet driver
     podman-compose
     podman-tui
+    cachix
   ];
 
   fonts.packages = with pkgs; [ nerdfonts ];

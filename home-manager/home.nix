@@ -1,6 +1,6 @@
 { inputs, lib, config, pkgs, unstable-pkgs, ... }: {
 
-  imports = [ ../nixos/modules/stylix.nix ];
+  imports = [ ../nixos/modules/stylix.nix ./yazi.nix];
 
   nixpkgs = {
     overlays = [ ];
@@ -21,10 +21,14 @@
     emacs
     geany
     unstable-pkgs.neovim
-    unstable-pkgs.windsurf
+    # unstable-pkgs.windsurf
+    dolphin
     # LSPs and formatter and stuff
     ruff
-    basedpyright
+    # unstable-pkgs.basedpyright => Bugged
+    pylyzer
+    cargo
+    rustc
     nixfmt
     nil
     shfmt
@@ -59,7 +63,7 @@
     yt-dlp
     pandoc
     tectonic
-    yazi
+    ouch
     ueberzugpp
     eza
     fzf
@@ -84,10 +88,6 @@
     zstd
     file  # for file type detection
   ];
-  # ++ [ unstable-pkgs.nushellPlugins.skim
-  #   unstable-pkgs.nushellPlugins.polars
-  #   unstable-pkgs.nushellPlugins.gstat
-  # ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
@@ -175,6 +175,15 @@
 
     initExtra = ''
       eval "$(zoxide init zsh)"
+
+      function yy() {
+          local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+          yazi "$@" --cwd-file="$tmp"
+          if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+                  builtin cd -- "$cwd"
+          fi
+          rm -f -- "$tmp"
+      }
 
       extract() {
           if [ -z "$1" ]; then

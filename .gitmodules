@@ -1,0 +1,3 @@
+[submodule "home-manager/external-config/yazi/duckdb.yazi"]
+	path = home-manager/external-config/yazi/duckdb.yazi
+	url = https://github.com/wylie102/duckdb.yazi.git
