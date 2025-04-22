@@ -24,6 +24,8 @@
 
   };
 
-  home.packages = with pkgs;
-    [ duckdb jq ]; # ++ (with unstable-pkgs; [ yaziPlugins.duckdb ]);
+  home.packages = with pkgs; [
+    duckdb
+    jq
+  ]; # ++ (with unstable-pkgs; [ yaziPlugins.duckdb ]);
 }

@@ -1,6 +1,6 @@
 { inputs, lib, config, pkgs, unstable-pkgs, ... }: {
 
-  imports = [ ../nixos/modules/stylix.nix ./yazi.nix];
+  imports = [ ../nixos/modules/stylix.nix ./yazi.nix ];
 
   nixpkgs = {
     overlays = [ ];
@@ -16,78 +16,100 @@
     homeDirectory = "/home/erd";
   };
 
-  home.packages = with pkgs; [
-    # Editors
-    emacs
-    geany
-    unstable-pkgs.neovim
-    # unstable-pkgs.windsurf
-    dolphin
-    # LSPs and formatter and stuff
-    ruff
-    # unstable-pkgs.basedpyright => Bugged
-    pylyzer
-    cargo
-    rustc
-    nixfmt
-    nil
-    shfmt
-    shellcheck
-    devenv
-    # Python
-    unstable-pkgs.python3
-    # unstable-pkgs.python3Packages.torch-bin
-    uv
-    # For screenshots
-    grim
-    slurp
-    # Clipboard manager for nvim
-    # xclip #X-server
-    wl-clipboard # Wayland
-    # Apps
-    flatpak
-    obsidian
-    libreoffice-qt6-fresh
-    spotify
-    typst # => For Documents
-    # gnome.gnome-software
-    mpv
-    deadbeef # music player
-    vesktop
-    # Terminal Apps
-    tilix
-    ripgrep
-    fd
-    btop
-    bat
-    yt-dlp
-    pandoc
-    tectonic
-    ouch
-    ueberzugpp
-    eza
-    fzf
-    zoxide
-    cliphist
-    brightnessctl
-    poweralertd
-    # Gaming
-    steam
-    heroic
-    gamemode
-    mangohud
-    # Archive utilities
-    gnutar
-    gzip
-    bzip2
-    xz
-    zip
-    unzip
-    p7zip
-    unrar
-    zstd
-    file  # for file type detection
-  ];
+  # This sets policies for zen-browser
+  programs.firefox = {
+    enable = false;
+    policies = {
+      AutofillAddressEnabled = true;
+      AutofillCreditCardEnabled = false;
+      DisableAppUpdate = true;
+      DisableFeedbackCommands = true;
+      DisableFirefoxStudies = true;
+      DisablePocket = true; # save webs for later reading
+      DisableTelemetry = true;
+      DontCheckDefaultBrowser = true;
+      NoDefaultBookmarks = true;
+      OfferToSaveLogins = false;
+    };
+  };
+
+  home.packages = with pkgs;
+    [
+      # inputs.zen-browser.packages."${system}".default
+      # Editors
+      emacs
+      geany
+      unstable-pkgs.neovim
+      # unstable-pkgs.windsurf
+      dolphin
+      # LSPs and formatter and stuff
+      ruff
+      # unstable-pkgs.basedpyright => Bugged
+      pylyzer
+      cargo
+      rustc
+      nixfmt
+      nil
+      shfmt
+      shellcheck
+      devenv
+      # Python
+      unstable-pkgs.python3
+      uv
+      # For screenshots
+      grim
+      slurp
+      # Clipboard manager for nvim
+      # xclip #X-server
+      wl-clipboard # Wayland
+      # Apps
+      flatpak
+      obsidian
+      libreoffice-qt6-fresh
+      spotify
+      typst # => For Documents
+      # gnome.gnome-software
+      mpv
+      deadbeef # music player
+      vesktop
+      # Terminal Apps
+      tilix
+      ripgrep
+      fd
+      btop
+      bat
+      yt-dlp
+      pandoc
+      tectonic
+      ouch
+      ueberzugpp
+      eza
+      fzf
+      zoxide
+      cliphist
+      brightnessctl
+      poweralertd
+      # Gaming
+      steam
+      heroic
+      gamemode
+      mangohud
+      # Archive utilities
+      gnutar
+      gzip
+      bzip2
+      xz
+      zip
+      unzip
+      p7zip
+      unrar
+      zstd
+      file # for file type detection
+    ] ++ [
+      (inputs.zen-browser.packages."${system}".default.override {
+        nativeMessagingHosts = [ pkgs.firefoxpwa ];
+      })
+    ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
@@ -103,10 +125,11 @@
   # NCspot -> Ncurses spotify client
   programs.ncspot = {
     enable = true;
-    settings = { use_nerdfond = true; cover.enable=true; };
-    package = unstable-pkgs.ncspot.override {
-      withCover = true;
+    settings = {
+      use_nerdfond = true;
+      cover.enable = true;
     };
+    package = unstable-pkgs.ncspot.override { withCover = true; };
   };
 
   # starship - an customizable prompt for any shell

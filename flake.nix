@@ -12,42 +12,52 @@
       url = "github:danth/stylix/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    # zen-browser = {
+    #   url = "github:NikSneMC/zen-browser-flake";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, ... }@inputs:
+  outputs =
+    { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, ... }@inputs:
     let
       inherit (self) outputs;
-      systems = [ "x86_64-linux" ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
-      
+
       # Create a consistent pkgs for each system
-      pkgsFor = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      
-      unstablePkgsFor = system: import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      
+      pkgsFor = system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
+      unstablePkgsFor = system:
+        import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
       # Shared modules for all NixOS configurations
       commonModules = [
         ./nixos/instances/defaults.nix
         stylix.nixosModules.stylix
         ./nixos/modules/stylix.nix
       ];
-      
+
       # Function to create a NixOS configuration
-      mkNixosConfig = { system ? "x86_64-linux", hostname, extraModules ? [] }: 
+      mkNixosConfig = { system ? "x86_64-linux", hostname, extraModules ? [ ] }:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { 
+          specialArgs = {
             inherit inputs outputs;
             pkgs = pkgsFor system;
             unstable-pkgs = unstablePkgsFor system;
           };
-          modules = commonModules ++ [ ./nixos/instances/${hostname} ] ++ extraModules;
+          modules = commonModules ++ [ ./nixos/instances/${hostname} ]
+            ++ extraModules;
         };
     in {
       nixConfig = {
@@ -64,7 +74,7 @@
           "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
         ];
       };
-      
+
       nixosConfigurations = {
         thinkpad-t430 = mkNixosConfig { hostname = "thinkpad-t430"; };
         hp = mkNixosConfig { hostname = "hp"; };
@@ -75,14 +85,12 @@
       homeConfigurations = {
         erd = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor "x86_64-linux";
-          extraSpecialArgs = { 
+          extraSpecialArgs = {
             inherit inputs outputs;
             unstable-pkgs = unstablePkgsFor "x86_64-linux";
           };
-          modules = [ 
-            stylix.homeManagerModules.stylix 
-            ./home-manager/home.nix 
-          ];
+          modules =
+            [ stylix.homeManagerModules.stylix ./home-manager/home.nix ];
         };
       };
     };

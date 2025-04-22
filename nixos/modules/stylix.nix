@@ -1,11 +1,7 @@
 { pkgs, config, lib, ... }: {
   stylix = {
     enable = true;
-    image = pkgs.fetchurl {
-      url = "https://github.com/erdiari/nix-config/blob/main/wp.png?raw=true";
-      sha256 =
-        "sha256-TGB+YWYfsGrFEF1laCB55zyOrct3eFGKGgFfhLYF8V0=";
-    };
+    image = ../../wp.png;
     polarity = "dark"; # "light" or "dark"
 
     # Base colors
@@ -16,7 +12,6 @@
       monospace = {
         package = pkgs.nerdfonts;
         name = "Source Code Pro";
-        # name = "Agave Nerd Font";
       };
     };
   };

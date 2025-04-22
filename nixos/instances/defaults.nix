@@ -34,7 +34,7 @@
     '';
     settings.auto-optimise-store = true;
   };
-  
+
   # Auto update
   system.autoUpgrade = {
     enable = true;
@@ -75,7 +75,6 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
-
 
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
