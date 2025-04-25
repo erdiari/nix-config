@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, unstable-pkgs, ... }: {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -19,9 +19,9 @@
     enable = true;
     wlr.enable = true;
     # If gnome is installed, this is defined. No need to define twice
-    # extraPortals = [
-    #   pkgs.xdg-desktop-portal-gtk
-    # ];
+    extraPortals = [
+      unstable-pkgs.xdg-desktop-portal-termfilechooser
+    ];
   };
 
   environment.sessionVariables = {
@@ -41,8 +41,8 @@
 
   environment.systemPackages = with pkgs; [
     hyprland
-    swww # for wallpapers
-    # hyprpaper # for wallpapers
+    # swww # for wallpapers
+    hyprpaper # for wallpapers
     playerctl # for multimedia control
     xwayland # for opening x-apps
     dunst # for messages
