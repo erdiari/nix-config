@@ -97,13 +97,24 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.displayManager = {enable=true;sddm.enable = true;};
+  services.displayManager = {
+    enable = true;
+    sddm.enable = true;
+  };
+  # programs.regreet = {
+  #   enable = true;
+  #   font.size = 12;
+  # };
 
   # services.xserver.displayManager.gdm.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  # plasma6 tries to enable ksshaskpass which conflicts with ssh-askpass
+  environment.plasma6.excludePackages = [ pkgs.kdePackages.ksshaskpass ];
+  programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+
 
   # Configure keymap in X11
   services.xserver = {
