@@ -19,7 +19,10 @@
     enable = true;
     wlr.enable = true;
     # If gnome is installed, this is defined. No need to define twice
-    extraPortals = with unstable-pkgs; [ xdg-desktop-portal-termfilechooser kdePackages.xdg-desktop-portal-kde ];
+    extraPortals = with unstable-pkgs; [
+      xdg-desktop-portal-termfilechooser
+      kdePackages.xdg-desktop-portal-kde
+    ];
   };
 
   environment.sessionVariables = {

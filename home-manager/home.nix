@@ -64,14 +64,14 @@
       wl-clipboard # Wayland
       # Apps
       flatpak
-      obsidian
+      # obsidian
       libreoffice-qt6-fresh
       spotify
       typst # => For Documents
       # gnome.gnome-software
       mpv
       deadbeef # music player
-      vesktop
+      # vesktop
       # Terminal Apps
       tilix
       ripgrep
@@ -90,7 +90,7 @@
       brightnessctl
       poweralertd
       # Gaming
-      steam
+      # steam
       heroic
       gamemode
       mangohud
@@ -109,6 +109,8 @@
       (inputs.zen-browser.packages."${system}".default.override {
         nativeMessagingHosts = [ pkgs.firefoxpwa ];
       })
+      unstable-pkgs.obsidian
+      unstable-pkgs.vesktop
     ];
 
   # Enable home-manager and git
@@ -158,28 +160,28 @@
     };
 
     extraConfig = ''
-            # Jump around neighboring window Vi key binding
-            map ctrl+shift+w>h neighboring_window left
-            map ctrl+shift+w>l neighboring_window right
-            map ctrl+shift+w>j neighboring_window down
-            map ctrl+shift+w>k neighboring_window up
+      # Jump around neighboring window Vi key binding
+      map ctrl+shift+w>h neighboring_window left
+      map ctrl+shift+w>l neighboring_window right
+      map ctrl+shift+w>j neighboring_window down
+      map ctrl+shift+w>k neighboring_window up
 
-            map ctrl+shift+w>shift+h move_window left
-            map ctrl+shift+w>shift+l move_window right
-            map ctrl+shift+w>shift+j move_window down
-            map ctrl+shift+w>shift+k move_window up
+      map ctrl+shift+w>shift+h move_window left
+      map ctrl+shift+w>shift+l move_window right
+      map ctrl+shift+w>shift+j move_window down
+      map ctrl+shift+w>shift+k move_window up
 
-            # Create a new window splitting the space used by the existing one so that
-            # the two windows are placed one above the other
-            map ctrl+shift+w>s launch --location=hsplit
+      # Create a new window splitting the space used by the existing one so that
+      # the two windows are placed one above the other
+      map ctrl+shift+w>s launch --location=hsplit
 
-            # Create a new window splitting the space used by the existing one so that
-            # the two windows are placed side by side
-            map ctrl+shift+w>v launch --location=vsplit
+      # Create a new window splitting the space used by the existing one so that
+      # the two windows are placed side by side
+      map ctrl+shift+w>v launch --location=vsplit
 
-            # Use nvim as the pager. Remove all ASCII formatting characters.
-            scrollback_pager nvim --noplugin -c 'set buftype=nofile' -c 'set noswapfile' -c 'silent! %s/\%x1b\[[0-9;]*[sumJK]//g' -c 'silent! %s/\%x1b]133;[A-Z]\%x1b\\//g' -c 'silent! %s/\%x1b\[[^m]*m//g' -c 'silent! %s///g' -
-        '';
+      # Use nvim as the pager. Remove all ASCII formatting characters.
+      scrollback_pager nvim --noplugin -c 'set buftype=nofile' -c 'set noswapfile' -c 'silent! %s/\%x1b\[[0-9;]*[sumJK]//g' -c 'silent! %s/\%x1b]133;[A-Z]\%x1b\\//g' -c 'silent! %s/\%x1b\[[^m]*m//g' -c 'silent! %s///g' -
+    '';
   };
 
   programs.fzf = {

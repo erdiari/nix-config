@@ -61,6 +61,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable app image and tell kernel use `appimage-run` to run binary
+  programs.appimage = {enable = true; binfmt = true;};
+
+
   # Docker - Requires user to be in docker group to use without sudo.
 
   virtualisation = {
@@ -113,8 +117,8 @@
   services.desktopManager.plasma6.enable = true;
   # plasma6 tries to enable ksshaskpass which conflicts with ssh-askpass
   environment.plasma6.excludePackages = [ pkgs.kdePackages.ksshaskpass ];
-  programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-
+  programs.ssh.askPassword =
+    pkgs.lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
 
   # Configure keymap in X11
   services.xserver = {
@@ -214,7 +218,16 @@
   };
 
   # Gaming stuff
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+    remotePlay.openFirewall =
+      true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall =
+      true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall =
+      true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
   programs.gamescope = {
     enable = true;
     capSysNice = true;
