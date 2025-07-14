@@ -11,7 +11,15 @@
     fonts = {
       monospace = {
         package = pkgs.nerd-fonts.sauce-code-pro;
-        name = "Source Code Pro";
+        name = "SauceCodePro Nerd Font";
+      };
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
       };
     };
 

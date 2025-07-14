@@ -3,29 +3,19 @@
     enable = true;
     enableZshIntegration = true;
     package = unstable-pkgs.yazi;
-    plugins = {
-      starship = pkgs.fetchFromGitHub {
-        owner = "Rolv-Apneseth";
-        repo = "starship.yazi";
-        rev = "c070754";
-        sha256 = "sha256-H8j+9jcdcpPFXVO/XQZL3zq1l5f/WiOm4YUxAMduSRs=";
-      };
-
-      # TODO: Find a way to download nbpreview package and uncomment
-      # nbpreview = pkgs.fetchFromGitHub {
-      #         owner = "AnirudhG07";
-      #         repo = "nbpreview";
-      #         rev = "f8879b3";
-      #         # sha256 = "sha256-...";
-      # };
+    plugins = with unstable-pkgs.yaziPlugins; {
+      starship = starship;
+      duckdb = duckdb;
+      git = git;
+      projects = projects;
+      wl-clipboard = wl-clipboard;
+      rich-preview = rich-preview;
+      gitui = gitui;
     };
 
-    settings = { }; # will use external-config
+    settings = { };
 
   };
 
-  home.packages = with pkgs; [
-    duckdb
-    jq
-  ]; # ++ (with unstable-pkgs; [ yaziPlugins.duckdb ]);
+  home.packages = with pkgs; [ duckdb jq ];
 }

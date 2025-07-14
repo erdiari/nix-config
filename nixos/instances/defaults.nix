@@ -110,20 +110,9 @@
     enable = true;
     sddm.enable = true;
   };
-  # programs.regreet = {
-  #   enable = true;
-  #   font.size = 12;
-  # };
 
-  # services.xserver.displayManager.gdm.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.desktopManager.gnome.enable = true;
   services.desktopManager.plasma6.enable = true;
-  # plasma6 tries to enable ksshaskpass which conflicts with ssh-askpass
   environment.plasma6.excludePackages = [ pkgs.kdePackages.ksshaskpass ];
-  programs.ssh.askPassword =
-    pkgs.lib.mkForce "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
 
   # Configure keymap in X11
   services.xserver = {
@@ -136,20 +125,14 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.pulseaudio.enable = false;
 
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable the OpenSSH daemon.
@@ -171,7 +154,6 @@
   users.users.erd = {
     isNormalUser = true;
     description = "erd";
-    # docker group is for using docker as non-root user.
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ floorp brave winetricks ];
     shell = pkgs.zsh;
@@ -190,9 +172,7 @@
     bottles
     easyeffects # Audio effects for PipeWire applications.
     pwvucontrol # Audio volume controller for pipewire
-    # gnome-network-displays
     mangohud
-    veikk-linux-driver-gui # Drawing tablet driver
     podman-compose
     podman-tui
     cachix
@@ -201,6 +181,12 @@
   fonts.packages = with pkgs; [
     nerd-fonts._0xproto
     nerd-fonts.droid-sans-mono
+    nerd-fonts.sauce-code-pro
+    dejavu_fonts
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+    liberation_ttf
   ];
 
   networking.firewall = {
@@ -218,7 +204,6 @@
   environment.variables.EDITOR = "nvim";
 
   # Power management and cpu scaling for laptops
-  # powerManagement.enable = true;
   services.tailscale = {
     enable = true;
     openFirewall = true;

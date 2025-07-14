@@ -52,7 +52,6 @@
       shfmt
       shellcheck
       devenv
-      rnix-lsp
       # Python
       unstable-pkgs.python3
       uv
@@ -72,6 +71,7 @@
       deadbeef # music player
       # vesktop
       # Terminal Apps
+      gitui
       tilix
       ripgrep
       fd
@@ -103,16 +103,13 @@
       unrar
       zstd
       file # for file type detection
-    ] ++ [
-      # (inputs.zen-browser.packages."${system}".default.override {
-      #   nativeMessagingHosts = [ pkgs.firefoxpwa ];
-      # })
-      unstable-pkgs.obsidian
-      unstable-pkgs.vesktop
-      unstable-pkgs.spotify
-      unstable-pkgs.neovim
-      unstable-pkgs.heroic
-    ];
+    ] ++ (with unstable-pkgs; [
+      obsidian
+      vesktop
+      spotify
+      neovim
+      heroic
+    ]); 
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
@@ -156,6 +153,8 @@
       enable_audio_bell = false;
       mouse_hide_wait = "-1.0";
       window_padding_width = 10;
+      font_family = "SauceCodePro Nerd Font";
+      font_size = 12;
       # background_opacity = "0.5";
       # background_blur = 5;
     };
