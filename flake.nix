@@ -12,14 +12,6 @@
       url = "github:danth/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # zen-browser = {
-    #   url = "github:0xc000022070/zen-browser-flake";
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
-    # zen-browser = {
-    #   url = "github:NikSneMC/zen-browser-flake";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs =
@@ -53,11 +45,14 @@
           inherit system;
           specialArgs = {
             inherit inputs outputs;
-            pkgs = pkgsFor system;
             unstable-pkgs = unstablePkgsFor system;
           };
           modules = commonModules ++ [ ./nixos/instances/${hostname} ]
-            ++ extraModules;
+            ++ extraModules ++ [
+              {
+                nixpkgs.pkgs = pkgsFor system;
+              }
+            ];
         };
     in {
       nixConfig = {

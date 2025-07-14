@@ -3,7 +3,6 @@
 
   nixpkgs = {
     overlays = [ ];
-    config = { allowUnfree = true; };
   };
 
   nix = let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;

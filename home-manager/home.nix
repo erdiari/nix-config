@@ -52,6 +52,7 @@
       shfmt
       shellcheck
       devenv
+      rnix-lsp
       # Python
       unstable-pkgs.python3
       uv
