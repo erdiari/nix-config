@@ -80,6 +80,12 @@
     };
   };
 
+  # Virtual machine
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["erd"];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Istanbul";
 
@@ -193,7 +199,10 @@
     cachix
   ];
 
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [
+    nerd-fonts._0xproto
+    nerd-fonts.droid-sans-mono
+  ];
 
   networking.firewall = {
     # enable the firewall
@@ -244,4 +253,5 @@
   };
 
   security.pam.services.erd.enableGnomeKeyring = true;
+  programs.nix-ld.enable = true;
 }

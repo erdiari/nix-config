@@ -16,9 +16,8 @@
     homeDirectory = "/home/erd";
   };
 
-  # This sets policies for zen-browser
   programs.firefox = {
-    enable = false;
+    enable = true;
     policies = {
       AutofillAddressEnabled = true;
       AutofillCreditCardEnabled = false;
@@ -39,16 +38,16 @@
       # Editors
       emacs
       geany
-      unstable-pkgs.neovim
+      unstable-pkgs.code-cursor
       # unstable-pkgs.windsurf
-      dolphin
+      kdePackages.dolphin
       # LSPs and formatter and stuff
       ruff
       # unstable-pkgs.basedpyright => Bugged
       pylyzer
       cargo
       rustc
-      nixfmt
+      nixfmt-classic
       nil
       shfmt
       shellcheck
@@ -66,7 +65,6 @@
       flatpak
       # obsidian
       libreoffice-qt6-fresh
-      spotify
       typst # => For Documents
       # gnome.gnome-software
       mpv
@@ -90,8 +88,7 @@
       brightnessctl
       poweralertd
       # Gaming
-      # steam
-      heroic
+      steam-run
       gamemode
       mangohud
       # Archive utilities
@@ -106,11 +103,14 @@
       zstd
       file # for file type detection
     ] ++ [
-      (inputs.zen-browser.packages."${system}".default.override {
-        nativeMessagingHosts = [ pkgs.firefoxpwa ];
-      })
+      # (inputs.zen-browser.packages."${system}".default.override {
+      #   nativeMessagingHosts = [ pkgs.firefoxpwa ];
+      # })
       unstable-pkgs.obsidian
       unstable-pkgs.vesktop
+      unstable-pkgs.spotify
+      unstable-pkgs.neovim
+      unstable-pkgs.heroic
     ];
 
   # Enable home-manager and git
@@ -222,7 +222,7 @@
       la = "ls -al";
     };
 
-    initExtra = ''
+    initContent = ''
       eval "$(zoxide init zsh)"
 
       function yy() {

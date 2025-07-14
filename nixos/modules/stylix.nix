@@ -10,8 +10,14 @@
 
     fonts = {
       monospace = {
-        package = pkgs.nerdfonts;
+        package = pkgs.nerd-fonts.sauce-code-pro;
         name = "Source Code Pro";
+      };
+    };
+
+    targets = {
+      firefox = {
+        profileNames = [ "default" ];
       };
     };
   };
