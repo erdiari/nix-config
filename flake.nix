@@ -52,11 +52,7 @@
             unstable-pkgs = unstablePkgsFor system;
           };
           modules = commonModules ++ [ ./nixos/instances/${hostname} ]
-            ++ extraModules ++ [
-              {
-                nixpkgs.pkgs = pkgsFor system;
-              }
-            ];
+            ++ extraModules ++ [{ nixpkgs.pkgs = pkgsFor system; }];
         };
 
       # Function to create a Darwin configuration

@@ -1,9 +1,7 @@
 { inputs, lib, config, pkgs, ... }: {
   imports = [ ];
 
-  nixpkgs = {
-    overlays = [ ];
-  };
+  nixpkgs = { overlays = [ ]; };
 
   nix = let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
@@ -61,8 +59,10 @@
   networking.networkmanager.enable = true;
 
   # Enable app image and tell kernel use `appimage-run` to run binary
-  programs.appimage = {enable = true; binfmt = true;};
-
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   # Docker - Requires user to be in docker group to use without sudo.
 
@@ -81,7 +81,7 @@
 
   # Virtual machine
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["erd"];
+  users.groups.libvirtd.members = [ "erd" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 

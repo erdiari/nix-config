@@ -50,15 +50,15 @@
 
   services.ssh-agent.enable = true;
 
-  # NCspot -> Ncurses spotify client
-  programs.ncspot = {
-    enable = true;
-    settings = {
-      use_nerdfont = true;
-      cover.enable = true;
-    };
-    package = unstable-pkgs.ncspot.override { withCover = true; };
-  };
+  # # NCspot -> Ncurses spotify client
+  # programs.ncspot = {
+  #   enable = true;
+  #   settings = {
+  #     use_nerdfont = true;
+  #     cover.enable = true;
+  #   };
+  #   package = unstable-pkgs.ncspot.override { withCover = true; };
+  # };
 
   # Kitty - terminal with image support
   programs.kitty = {
