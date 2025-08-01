@@ -1,7 +1,5 @@
 { inputs, lib, config, pkgs, unstable-pkgs, ... }: {
 
-  imports = [ ../nixos/modules/stylix.nix ./yazi.nix ];
-
   nixpkgs = {
     overlays = [ ];
     config = {
@@ -9,11 +7,6 @@
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = _: true;
     };
-  };
-
-  home = {
-    username = "erd";
-    homeDirectory = "/home/erd";
   };
 
   programs.firefox = {
@@ -32,104 +25,60 @@
     };
   };
 
-  home.packages = with pkgs;
-    [
-      # inputs.zen-browser.packages."${system}".default
-      # Editors
-      emacs
-      geany
-      unstable-pkgs.code-cursor
-      # unstable-pkgs.windsurf
-      kdePackages.dolphin
-      # LSPs and formatter and stuff
-      ruff
-      # unstable-pkgs.basedpyright => Bugged
-      pylyzer
-      cargo
-      rustc
-      nixfmt-classic
-      nil
-      shfmt
-      shellcheck
-      devenv
-      # Python
-      unstable-pkgs.python3
-      uv
-      # For screenshots
-      grim
-      slurp
-      # Clipboard manager for nvim
-      # xclip #X-server
-      wl-clipboard # Wayland
-      # Apps
-      flatpak
-      # obsidian
-      libreoffice-qt6-fresh
-      typst # => For Documents
-      # gnome.gnome-software
-      mpv
-      deadbeef # music player
-      # vesktop
-      # Terminal Apps
-      gitui
-      tilix
-      ripgrep
-      fd
-      btop
-      bat
-      yt-dlp
-      pandoc
-      tectonic
-      ouch
-      ueberzugpp
-      eza
-      fzf
-      zoxide
-      cliphist
-      brightnessctl
-      poweralertd
-      # Gaming
-      steam-run
-      gamemode
-      mangohud
-      # Archive utilities
-      gnutar
-      gzip
-      bzip2
-      xz
-      zip
-      unzip
-      p7zip
-      unrar
-      zstd
-      file # for file type detection
-    ] ++ (with unstable-pkgs; [
-      obsidian
-      vesktop
-      spotify
-      neovim
-      heroic
-    ]); 
+  home.packages = with pkgs; [
+    # Editors
+    emacs
+    unstable-pkgs.code-cursor
+    # LSPs and formatter and stuff
+    ruff
+    pylyzer
+    cargo
+    rustc
+    nixfmt-classic
+    nil
+    shfmt
+    shellcheck
+    devenv
+    # Python
+    unstable-pkgs.python3
+    uv
+    # Apps
+    typst # => For Documents
+    mpv
+    # Terminal Apps
+    gitui
+    ripgrep
+    fd
+    btop
+    bat
+    yt-dlp
+    pandoc
+    tectonic
+    ouch
+    eza
+    fzf
+    zoxide
+    # Archive utilities
+    gnutar
+    gzip
+    bzip2
+    xz
+    zip
+    unzip
+    p7zip
+    unrar
+    zstd
+    file # for file type detection
+  ] ++ (with unstable-pkgs; [
+    obsidian
+    neovim
+  ]);
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
-    userName = "Erdi ARI";
-    userEmail = "me@erdiari.dev";
     lfs.enable = true;
-  };
-
-  services.ssh-agent.enable = true;
-
-  # NCspot -> Ncurses spotify client
-  programs.ncspot = {
-    enable = true;
-    settings = {
-      use_nerdfond = true;
-      cover.enable = true;
-    };
-    package = unstable-pkgs.ncspot.override { withCover = true; };
   };
 
   # starship - an customizable prompt for any shell
@@ -141,47 +90,6 @@
       gcloud.disabled = true;
       line_break.disabled = true;
     };
-  };
-
-  # Kitty - terminal with image support
-  programs.kitty = {
-    enable = true;
-    shellIntegration.enableZshIntegration = true;
-    settings = {
-      confirm_os_window_close = 0;
-      dynamic_background_opacity = true;
-      enable_audio_bell = false;
-      mouse_hide_wait = "-1.0";
-      window_padding_width = 10;
-      font_family = "SauceCodePro Nerd Font";
-      font_size = 12;
-      # background_opacity = "0.5";
-      # background_blur = 5;
-    };
-
-    extraConfig = ''
-      # Jump around neighboring window Vi key binding
-      map ctrl+shift+w>h neighboring_window left
-      map ctrl+shift+w>l neighboring_window right
-      map ctrl+shift+w>j neighboring_window down
-      map ctrl+shift+w>k neighboring_window up
-
-      map ctrl+shift+w>shift+h move_window left
-      map ctrl+shift+w>shift+l move_window right
-      map ctrl+shift+w>shift+j move_window down
-      map ctrl+shift+w>shift+k move_window up
-
-      # Create a new window splitting the space used by the existing one so that
-      # the two windows are placed one above the other
-      map ctrl+shift+w>s launch --location=hsplit
-
-      # Create a new window splitting the space used by the existing one so that
-      # the two windows are placed side by side
-      map ctrl+shift+w>v launch --location=vsplit
-
-      # Use nvim as the pager. Remove all ASCII formatting characters.
-      scrollback_pager nvim --noplugin -c 'set buftype=nofile' -c 'set noswapfile' -c 'silent! %s/\%x1b\[[0-9;]*[sumJK]//g' -c 'silent! %s/\%x1b]133;[A-Z]\%x1b\\//g' -c 'silent! %s/\%x1b\[[^m]*m//g' -c 'silent! %s///g' -
-    '';
   };
 
   programs.fzf = {
@@ -214,9 +122,6 @@
 
     shellAliases = {
       v = "nvim";
-      install-homemanager =
-        "home-manager switch --flake ~/Documents/nix-config/home-manager/home.nix#default";
-      doom = "~/.emacs.d/bin/doom";
       ls = "eza --icons=always";
       lt = "ls -T";
       la = "ls -al";
@@ -370,26 +275,6 @@
       }
     ];
   };
-
-  services.syncthing.enable = true;
-
-  # lorri for faster direnv
-  services.lorri.enable = true;
-
-  # # Configurations -> Will use symbolic links to configure
-  home.file.".config" = {
-    source = ./external-config;
-    recursive = true;
-  };
-
-  # doom emacs configuration, requires manual installation of doom emacs
-  home.file.".doom.d" = {
-    source = ./doom.d;
-    recursive = true;
-  };
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";

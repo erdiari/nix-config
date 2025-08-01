@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
       url = "github:danth/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,7 +19,7 @@
   };
 
   outputs =
-    { self, nixpkgs, nixpkgs-unstable, home-manager, stylix, ... }@inputs:
+    { self, nixpkgs, nixpkgs-unstable, home-manager, nix-darwin, stylix, ... }@inputs:
     let
       inherit (self) outputs;
 
@@ -54,6 +58,23 @@
               }
             ];
         };
+
+      # Function to create a Darwin configuration
+      mkDarwinConfig = { system ? "aarch64-darwin", hostname, extraModules ? [ ] }:
+        nix-darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs outputs;
+            unstable-pkgs = unstablePkgsFor system;
+          };
+          modules = [ 
+            ./darwin/instances/${hostname}/default.nix
+          ] ++ extraModules ++ [
+            {
+              nixpkgs.pkgs = pkgsFor system;
+            }
+          ];
+        };
     in {
       nixConfig = {
         extra-substituters = [
@@ -76,6 +97,10 @@
         desktop = mkNixosConfig { hostname = "desktop"; };
       };
 
+      darwinConfigurations = {
+        macbook = mkDarwinConfig { hostname = "macbook"; };
+      };
+
       # Home-manager configuration that uses the same pkgs as NixOS
       homeConfigurations = {
         erd = home-manager.lib.homeManagerConfiguration {
@@ -85,7 +110,20 @@
             unstable-pkgs = unstablePkgsFor "x86_64-linux";
           };
           modules =
-            [ stylix.homeManagerModules.stylix ./home-manager/home.nix ];
+            [ stylix.homeModules.stylix ./home-manager/linux.nix ];
+        };
+        
+        # macOS configuration
+        vngrs = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor "aarch64-darwin";
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            unstable-pkgs = unstablePkgsFor "aarch64-darwin";
+          };
+          modules = [
+            stylix.homeModules.stylix 
+            ./home-manager/darwin.nix
+          ];
         };
       };
     };
