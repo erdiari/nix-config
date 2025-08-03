@@ -11,16 +11,9 @@
     };
   };
 
-  home = {
-    username = "erd";
-    homeDirectory = "/home/erd";
-  };
-
-  # services.mako.enable = false;
-  # services.dunst.enable = true;
 
   programs.firefox = {
-    enable = true;
+    enable = false;
     policies = {
       AutofillAddressEnabled = true;
       AutofillCreditCardEnabled = false;
@@ -37,45 +30,22 @@
 
   home.packages = with pkgs;
     [
-      # inputs.zen-browser.packages."${system}".default
-      # Editors
-      emacs
-      geany
-      # unstable-pkgs.code-cursor
       unstable-pkgs.claude-code
-
-      # unstable-pkgs.windsurf
-      kdePackages.dolphin
       # LSPs and formatter and stuff
       ruff
-      # unstable-pkgs.basedpyright => Bugged
-      pylyzer
       cargo
       rustc
       nixfmt-classic
       nil
       shfmt
       shellcheck
-      devenv
       # Python
       unstable-pkgs.python3
       uv
-      # For screenshots
-      grim
-      slurp
-      # Clipboard manager for nvim
-      # xclip #X-server
-      wl-clipboard # Wayland
-      # Apps
-      flatpak
-      libreoffice-qt6-fresh
       typst # => For Documents
-      # gnome.gnome-software
       mpv
-      deadbeef # music player
       # Terminal Apps
       gitui
-      tilix
       ripgrep
       fd
       btop
@@ -84,17 +54,9 @@
       pandoc
       tectonic
       ouch
-      ueberzugpp
       eza
       fzf
       zoxide
-      cliphist
-      brightnessctl
-      poweralertd
-      # Gaming
-      steam-run
-      gamemode
-      mangohud
       # Archive utilities
       gnutar
       gzip
@@ -107,7 +69,7 @@
       zstd
       file # for file type detection
     ]
-    ++ (with unstable-pkgs; [ obsidian logseq vesktop spotify neovim heroic ]);
+    ++ (with unstable-pkgs; [ obsidian logseq vesktop neovim ]);
 
   # Default apps TODO
   # xdg.mimeApps.defaultApplications = {}
@@ -121,7 +83,6 @@
     lfs.enable = true;
   };
 
-  services.ssh-agent.enable = true;
 
   # NCspot -> Ncurses spotify client
   programs.ncspot = {
@@ -190,11 +151,6 @@
     enableZshIntegration = true;
   };
 
-  programs.direnv = {
-    enableZshIntegration = true;
-    enable = true;
-    nix-direnv.enable = true;
-  };
 
   programs.nushell = {
     enable = true;
@@ -372,8 +328,6 @@
 
   services.syncthing.enable = true;
 
-  # lorri for faster direnv
-  services.lorri.enable = true;
 
   # # Configurations -> Will use symbolic links to configure
   home.file.".config" = {

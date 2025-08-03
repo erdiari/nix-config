@@ -7,11 +7,19 @@
     homeDirectory = "/home/erd";
   };
 
+  programs.direnv = {
+    enableZshIntegration = true;
+    enable = true;
+    nix-direnv.enable = true;
+  };
+  services.ssh-agent.enable = true;
+
   # Linux-specific packages
   home.packages = with pkgs; [
     # Linux-specific editors
     geany
     kdePackages.dolphin
+    devenv
     # For screenshots (Linux/Wayland)
     grim
     slurp

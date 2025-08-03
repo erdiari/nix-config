@@ -3,9 +3,13 @@
   imports = [ ./default.nix ];
 
   home = {
-    username = "vngrs";
-    homeDirectory = "/Users/vngrs";
+    username = "erd";
+    homeDirectory = "/Users/erd";
   };
+
+  home.packages = with unstable-pkgs; [
+    maccy
+ ];
 
   # macOS-specific git configuration
   programs.git = {
@@ -15,6 +19,6 @@
 
   # macOS-specific shell aliases
   programs.zsh.shellAliases = {
-    install-homemanager = "home-manager switch --flake ~/Projects/nix-config#vngrs";
+    install-homemanager = "home-manager switch --flake ~/Projects/nix-config#erd";
   };
 }

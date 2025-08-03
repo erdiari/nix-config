@@ -94,7 +94,8 @@
       };
 
       darwinConfigurations = {
-        macbook = mkDarwinConfig { hostname = "macbook"; };
+        mac-m1 = mkDarwinConfig { hostname = "mac-m1"; system = "aarch64-darwin"; };
+        mac-intel = mkDarwinConfig { hostname = "mac-m1"; system = "x86_64-darwin"; };
       };
 
       # Home-manager configuration that uses the same pkgs as NixOS
@@ -110,11 +111,22 @@
         };
         
         # macOS configuration
-        vngrs = home-manager.lib.homeManagerConfiguration {
+        mac-m1 = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor "aarch64-darwin";
           extraSpecialArgs = {
             inherit inputs outputs;
             unstable-pkgs = unstablePkgsFor "aarch64-darwin";
+          };
+          modules = [
+            stylix.homeModules.stylix 
+            ./home-manager/darwin.nix
+          ];
+        };
+        mac-intel = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor "x86_64-darwin";
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            unstable-pkgs = unstablePkgsFor "x86_64-darwin";
           };
           modules = [
             stylix.homeModules.stylix 
