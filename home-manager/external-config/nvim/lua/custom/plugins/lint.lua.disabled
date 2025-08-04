@@ -1,0 +1,40 @@
+-- Linting configuration
+return {
+  {
+    'mfussenegger/nvim-lint',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      local lint = require('lint')
+      
+      lint.linters_by_ft = {
+        python = { 'ruff' },
+      }
+      
+      -- Configure ruff linter
+      lint.linters.ruff.args = {
+        'check',
+        '--output-format=json',
+        '--stdin-filename',
+        function()
+          return vim.api.nvim_buf_get_name(0)
+        end,
+        '-'
+      }
+      
+      -- Auto-run linting
+      local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+      
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+        group = lint_augroup,
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+      
+      -- Manual linting keymap
+      vim.keymap.set('n', '<leader>l', function()
+        lint.try_lint()
+      end, { desc = 'Trigger linting for current file' })
+    end,
+  },
+}
