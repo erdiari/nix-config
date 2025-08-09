@@ -94,8 +94,8 @@
       };
 
       darwinConfigurations = {
-        mac-m1 = mkDarwinConfig { hostname = "mac-m1"; system = "aarch64-darwin"; };
-        mac-intel = mkDarwinConfig { hostname = "mac-m1"; system = "x86_64-darwin"; };
+        mac-m1 = mkDarwinConfig { hostname = "mac-work"; system = "aarch64-darwin"; };
+        mac-intel = mkDarwinConfig { hostname = "mac-personal"; system = "x86_64-darwin"; };
       };
 
       # Home-manager configuration that uses the same pkgs as NixOS

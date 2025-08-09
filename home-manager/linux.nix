@@ -12,7 +12,6 @@
     enable = true;
     nix-direnv.enable = true;
   };
-  services.ssh-agent.enable = true;
 
   # Linux-specific packages
   home.packages = with pkgs; [

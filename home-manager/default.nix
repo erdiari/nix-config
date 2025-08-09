@@ -1,6 +1,6 @@
 { inputs, lib, config, pkgs, unstable-pkgs, ... }: {
 
-  imports = [ ../nixos/modules/stylix.nix ./yazi.nix ];
+  imports = [ ./yazi.nix ];
 
   nixpkgs = {
     overlays = [ ];

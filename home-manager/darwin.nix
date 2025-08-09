@@ -9,6 +9,7 @@
 
   home.packages = with unstable-pkgs; [
     maccy
+    tailscale
  ];
 
   # macOS-specific git configuration

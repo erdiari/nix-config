@@ -1,0 +1,11 @@
+On macos:
+1. install lix:
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+
+2. install homemanager
+nix run home-manager/release-25.05 -- init --switch
+
+3. install nix-darwin
+sudo nix run nix-darwin/nix-darwin-25.05#darwin-rebuild -- switch
+
+4. install config as normal
