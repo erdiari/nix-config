@@ -154,10 +154,15 @@
   users.users.erd = {
     isNormalUser = true;
     description = "erd";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "lp" ];
     packages = with pkgs; [ floorp brave winetricks ];
     shell = pkgs.zsh;
   };
+
+  services.udev.extraRules = ''
+    # Set permissions for POS58 USB thermal receipt printer
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0416", ATTR{idProduct}=="5011", MODE="0666"
+  '';
 
   environment.systemPackages = with pkgs; [
     vim

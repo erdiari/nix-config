@@ -22,11 +22,6 @@
     fsType = "ext4";
   };
 
-  fileSystems."/mnt/depo_2" = {
-    device = "/dev/disk/by-uuid/7d3a8cc1-011d-4668-97c9-e531cb450f7d";
-    fsType = "ext4";
-  };
-
   fileSystems."/mnt/nvme" = {
     device = "/dev/disk/by-uuid/ce2c5440-f2df-44ad-b9c1-b27255982a33";
     fsType = "ext4";

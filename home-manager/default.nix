@@ -11,7 +11,6 @@
     };
   };
 
-
   programs.firefox = {
     enable = false;
     policies = {
@@ -31,6 +30,7 @@
   home.packages = with pkgs;
     [
       unstable-pkgs.claude-code
+      yaak # API client
       # LSPs and formatter and stuff
       ruff
       cargo
@@ -57,6 +57,8 @@
       eza
       fzf
       zoxide
+      lazygit
+      lazydocker
       # Archive utilities
       gnutar
       gzip
@@ -68,8 +70,7 @@
       unrar
       zstd
       file # for file type detection
-    ]
-    ++ (with unstable-pkgs; [ obsidian logseq vesktop neovim ]);
+    ] ++ (with unstable-pkgs; [ obsidian logseq neovim ]);
 
   # Default apps TODO
   # xdg.mimeApps.defaultApplications = {}
@@ -82,7 +83,6 @@
     userEmail = "me@erdiari.dev";
     lfs.enable = true;
   };
-
 
   # NCspot -> Ncurses spotify client
   programs.ncspot = {
@@ -150,7 +150,6 @@
     enable = true;
     enableZshIntegration = true;
   };
-
 
   programs.nushell = {
     enable = true;
@@ -328,19 +327,16 @@
 
   services.syncthing.enable = true;
 
-
   # # Configurations -> Will use symbolic links to configure
   home.file.".config" = {
     source = ./external-config;
     recursive = true;
   };
-
   # doom emacs configuration, requires manual installation of doom emacs
   home.file.".doom.d" = {
     source = ./doom.d;
     recursive = true;
   };
-
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 

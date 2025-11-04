@@ -14,34 +14,36 @@
   };
 
   # Linux-specific packages
-  home.packages = with pkgs; [
-    # Linux-specific editors
-    geany
-    kdePackages.dolphin
-    devenv
-    # For screenshots (Linux/Wayland)
-    grim
-    slurp
-    # Clipboard manager for nvim (Linux/Wayland)
-    wl-clipboard
-    # Linux-specific apps
-    flatpak
-    deadbeef # music player
-    tilix
-    ueberzugpp
-    cliphist
-    brightnessctl
-    poweralertd
-    # Office suite (not available on macOS ARM64)
-    libreoffice-qt6-fresh
-    # Gaming (Linux)
-    steam-run
-    gamemode
-    mangohud
-  ] ++ (with unstable-pkgs; [
-    vesktop
-    heroic
-  ]);
+  home.packages = with pkgs;
+    [
+      # Linux-specific editors
+      geany
+      kdePackages.dolphin
+      devenv
+      # For screenshots (Linux/Wayland)
+      grim
+      slurp
+      # Clipboard manager for nvim (Linux/Wayland)
+      wl-clipboard
+      # Linux-specific apps
+      flatpak
+      deadbeef # music player
+      tilix
+      ueberzugpp
+      cliphist
+      brightnessctl
+      poweralertd
+      # Office suite (not available on macOS ARM64)
+      libreoffice-qt6-fresh
+      # Gaming (Linux)
+      steam-run
+      gamemode
+      mangohud
+    ] ++ (with unstable-pkgs;
+      [
+        # vesktop
+        heroic
+      ]);
 
   # Linux-specific git configuration
   programs.git = {
@@ -51,7 +53,8 @@
 
   # Linux-specific shell aliases
   programs.zsh.shellAliases = {
-    install-homemanager = "home-manager switch --flake ~/Documents/nix-config#erd";
+    install-homemanager =
+      "home-manager switch --flake ~/Documents/nix-config#erd";
     doom = "~/.emacs.d/bin/doom";
   };
 

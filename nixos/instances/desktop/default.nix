@@ -22,9 +22,19 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [
+    gutenprint
+    gutenprintBin
+    cnijfilter2
+    cups-zj-58
+  ];
+
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
+
+    open = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
@@ -42,8 +52,6 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.production;
-
-    open = true;
   };
 
   environment.systemPackages = with pkgs; [ cudaPackages.cudatoolkit ];

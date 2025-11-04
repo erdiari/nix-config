@@ -24,9 +24,6 @@
     };
 
     targets = {
-      firefox = {
-        profileNames = [ "default" ];
-      };
     };
   };
 }
