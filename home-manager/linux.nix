@@ -1,6 +1,6 @@
 { inputs, lib, config, pkgs, unstable-pkgs, ... }: {
 
-  imports = [ ../nixos/modules/stylix.nix ./yazi.nix ./default.nix ];
+  imports = [ ../nixos/modules/stylix.nix ./yazi.nix ./default.nix ./noctalia.nix ];
 
   home = {
     username = "erd";

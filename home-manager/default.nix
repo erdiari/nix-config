@@ -70,7 +70,7 @@
       unrar
       zstd
       file # for file type detection
-    ] ++ (with unstable-pkgs; [ obsidian logseq neovim ]);
+    ] ++ (with unstable-pkgs; [ affine obsidian logseq neovim ]);
 
   # Default apps TODO
   # xdg.mimeApps.defaultApplications = {}

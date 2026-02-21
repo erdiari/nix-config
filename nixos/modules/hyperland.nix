@@ -47,7 +47,7 @@
     playerctl # for multimedia control
     xwayland # for opening x-apps
     dunst # for messages
-    rofi-wayland # opening apps
+    rofi # opening apps
     bemoji # rofi emoji plugin
     rofi-rbw-wayland # rofi bitwarden plugin
     rbw # bitwarden cli
@@ -55,8 +55,5 @@
     gcr
     kitty # default terminal
     networkmanagerapplet # for controlling network
-    (waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-    }))
   ];
 }

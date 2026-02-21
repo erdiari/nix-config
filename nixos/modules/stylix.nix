@@ -24,6 +24,7 @@
     };
 
     targets = {
+      # Stylix manages GTK themes - KDE settings will be overridden
     };
   };
 }
