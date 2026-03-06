@@ -30,7 +30,6 @@
   home.packages = with pkgs;
     [
       unstable-pkgs.claude-code
-      yaak # API client
       # LSPs and formatter and stuff
       ruff
       cargo
@@ -70,7 +69,12 @@
       unrar
       zstd
       file # for file type detection
-    ] ++ (with unstable-pkgs; [ affine obsidian logseq neovim ]);
+    ] ++ (with unstable-pkgs; [ obsidian neovim ]);
+
+  # Add .local/bin to PATH
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   # Default apps TODO
   # xdg.mimeApps.defaultApplications = {}
@@ -84,15 +88,15 @@
     lfs.enable = true;
   };
 
-  # NCspot -> Ncurses spotify client
-  programs.ncspot = {
-    enable = true;
-    settings = {
-      use_nerdfond = true;
-      cover.enable = true;
-    };
-    package = unstable-pkgs.ncspot.override { withCover = true; };
-  };
+  # # NCspot -> Ncurses spotify client
+  # programs.ncspot = {
+  #   enable = true;
+  #   settings = {
+  #     use_nerdfond = true;
+  #     cover.enable = true;
+  #   };
+  #   package = unstable-pkgs.ncspot.override { withCover = true; };
+  # };
 
   # starship - an customizable prompt for any shell
   programs.starship = {

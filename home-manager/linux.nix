@@ -16,6 +16,7 @@
   # Linux-specific packages
   home.packages = with pkgs;
     [
+      yaak # API client
       # Linux-specific editors
       geany
       kdePackages.dolphin
@@ -43,6 +44,7 @@
       [
         # vesktop
         heroic
+        logseq 
       ]);
 
   # Linux-specific git configuration
@@ -120,11 +122,6 @@
     recursive = true;
   };
 
-  # doom emacs configuration, requires manual installation of doom emacs
-  home.file.".doom.d" = {
-    source = ./doom.d;
-    recursive = true;
-  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

@@ -56,11 +56,11 @@
       minimize-to-application = true;     # Minimize windows into app icon instead of separate dock tile
       show-process-indicators = true;     # Show dots under running applications
       
-      # Clean slate configuration (can be customized per machine)
-      persistent-apps = [
-        "/System/Applications/Launchpad.app"
-      ];              # Start with Launchpad in dock
-      persistent-others = [];            # Start with empty dock folders/documents
+      # # Clean slate configuration (can be customized per machine)
+      # persistent-apps = [
+      #   "/System/Applications/Launchpad.app"
+      # ];              # Start with Launchpad in dock
+      # persistent-others = [];            # Start with empty dock folders/documents
       
       # Hot corners for productivity (move mouse to screen corner to trigger action)
       # Values: 0=None, 2=Mission Control, 3=Show application windows, 4=Desktop, 5=Start screen saver, 6=Disable screen saver, 7=Dashboard, 10=Put display to sleep, 11=Launchpad, 12=Notification Center, 13=Lock screen
