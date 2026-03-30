@@ -1,6 +1,8 @@
-{ inputs, lib, config, pkgs, unstable-pkgs, ... }: {
-
-  imports = [ ./default.nix ];
+{ inputs, unstable-pkgs, ... }: {
+  imports = [
+    inputs.stylix.homeModules.stylix
+    ./default.nix
+  ];
 
   home = {
     username = "erd";
@@ -10,15 +12,13 @@
   home.packages = with unstable-pkgs; [
     maccy
     tailscale
- ];
+  ];
 
-  # macOS-specific git configuration
   programs.git = {
     userName = "Erdi ARI";
-    userEmail = "me@erdiari.dev"; 
+    userEmail = "me@erdiari.dev";
   };
 
-  # macOS-specific shell aliases
   programs.zsh.shellAliases = {
     install-homemanager = "home-manager switch --flake ~/Projects/nix-config#erd";
   };
