@@ -19,7 +19,7 @@
   };
 
   flake.nixosModules.desktopConfiguration = { config, pkgs, lib, ... }: {
-    imports = [ ./hardware-configuration.nix ];
+    imports = [ ./_hardware-configuration.nix ];
 
     networking.hostName = "desktop";
 

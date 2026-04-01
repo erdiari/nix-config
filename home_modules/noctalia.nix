@@ -8,6 +8,9 @@
   # Configure Noctalia
   programs.noctalia-shell = {
     enable = true;
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.kdePackages.kirigami ];
+    });
     settings = {
       bar = {
         density = "default";
@@ -29,7 +32,7 @@
             {
               id = "Workspace";
               hideUnoccupied = false;
-              labelMode = "none";
+              labelMode = "index";
             }
           ];
           right = [
@@ -57,7 +60,7 @@
         };
       };
       general = {
-        avatarImage = "";
+        avatarImage = "~/.face";
         radiusRatio = 1;
       };
       location = {
@@ -65,6 +68,7 @@
         monthBeforeDay = false;
       };
       colorSchemes = {
+        useWallpaperColors = true;
         predefinedScheme = "Noctalia (default)";
       };
     };

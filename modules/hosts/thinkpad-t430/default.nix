@@ -19,7 +19,7 @@
   };
 
   flake.nixosModules.thinkpadT430Configuration = { ... }: {
-    imports = [ ./hardware-configuration.nix ];
+    imports = [ ./_hardware-configuration.nix ];
 
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "/dev/sda";

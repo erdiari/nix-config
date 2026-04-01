@@ -2,6 +2,7 @@
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
+    shellWrapperName = "y";
     package = unstable-pkgs.yazi;
     plugins = with unstable-pkgs.yaziPlugins; {
       starship = starship;
