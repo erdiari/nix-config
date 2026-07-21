@@ -1,75 +1,33 @@
-{ pkgs, inputs, ... }:
+{ inputs, ... }:
 {
-  # Import the home manager module
   imports = [
     inputs.noctalia.homeModules.default
   ];
 
-  # Configure Noctalia
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
-    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-      buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.kdePackages.kirigami ];
-    });
+
     settings = {
-      bar = {
-        density = "default";
-        position = "top";
-        showCapsule = true;
-        widgets = {
-          left = [
-            {
-              id = "Launcher";
-            }
-            {
-              id = "Clock";
-            }
-            {
-              id = "ActiveWindow";
-            }
-          ];
-          center = [
-            {
-              id = "Workspace";
-              hideUnoccupied = false;
-              labelMode = "index";
-            }
-          ];
-          right = [
-            {
-              id = "Tray";
-            }
-            {
-              id = "NotificationHistory";
-            }
-            {
-              id = "Battery";
-              alwaysShowPercentage = false;
-              warningThreshold = 30;
-            }
-            {
-              id = "Volume";
-            }
-            {
-              id = "Brightness";
-            }
-            {
-              id = "ControlCenter";
-            }
-          ];
-        };
+      shell = {
+        avatar_path = "~/.face";
+        corner_radius_scale = 1.0;
       };
-      general = {
-        avatarImage = "~/.face";
-        radiusRatio = 1;
+
+      theme = {
+        mode = "dark";
+        source = "wallpaper";
       };
+
       location = {
-        name = "Istanbul, Turkey";
-        monthBeforeDay = false;
+        address = "Istanbul, Turkey";
       };
-      colorSchemes = {
-        useWallpaperColors = true;
-        predefinedScheme = "Noctalia (default)";
+
+      bar.main = {
+        position = "top";
+        capsule = true;
+        start = [ "launcher" "clock" "activewindow" ];
+        center = [ "workspaces" ];
+        end = [ "tray" "notifications" "battery" "volume" "brightness" "control-center" ];
       };
     };
   };

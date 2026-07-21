@@ -37,7 +37,6 @@
     ] ++ (with unstable-pkgs;
       [
         heroic
-        logseq
       ]);
 
   programs.zsh.shellAliases = {
