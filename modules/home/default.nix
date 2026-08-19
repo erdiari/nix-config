@@ -49,6 +49,7 @@ let
         [
           unstable-pkgs.claude-code
           unstable-pkgs.pi-coding-agent
+          inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
           ruff
           cargo
           rustc
