@@ -10,7 +10,15 @@ let
       ...
     }:
     {
-      imports = [ ../../home_modules/yazi.nix ];
+      imports = [
+        ../../home_modules/yazi.nix
+        inputs.omp.homeManagerModules.default
+      ];
+
+      programs.omp = {
+        enable = true;
+        settings.startup.quiet = true;
+      };
 
       nixpkgs = {
         overlays = [ ];
