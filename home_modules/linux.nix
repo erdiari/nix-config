@@ -1,4 +1,10 @@
-{ inputs, pkgs, unstable-pkgs, ... }: {
+{
+  inputs,
+  pkgs,
+  unstable-pkgs,
+  ...
+}:
+{
   imports = [
     ./noctalia.nix
   ];
@@ -14,12 +20,17 @@
     nix-direnv.enable = true;
   };
 
-  home.packages = with pkgs;
+  programs.gh.enable = true;
+
+  home.packages =
+    with pkgs;
     [
       yaak
       geany
       kdePackages.dolphin
       devenv
+      nodejs_22
+      pnpm
       grim
       slurp
       wl-clipboard
@@ -34,14 +45,14 @@
       steam-run
       gamemode
       mangohud
-    ] ++ (with unstable-pkgs;
-      [
-        heroic
-      ]);
+      (callPackage inputs.creamlinux-installer { })
+    ]
+    ++ (with unstable-pkgs; [
+      heroic
+    ]);
 
   programs.zsh.shellAliases = {
-    install-homemanager =
-      "home-manager switch --flake ~/Documents/nix-config#erd";
+    install-homemanager = "home-manager switch --flake ~/Documents/nix-config#erd";
   };
 
   services.ssh-agent.enable = true;

@@ -12,7 +12,7 @@
     };
 
     services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.gcr ];
+    services.dbus.packages = [ pkgs.gcr_4 ];
     services.xserver.updateDbusEnvironment = true;
 
     xdg.portal = {
@@ -48,7 +48,7 @@
       rofi-rbw-wayland
       rbw
       pinentry-gnome3
-      gcr
+      gcr_4
       kitty
       networkmanagerapplet
     ];

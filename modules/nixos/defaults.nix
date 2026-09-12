@@ -25,14 +25,22 @@
         in
         {
           settings = {
-            experimental-features = "nix-command flakes";
+            experimental-features = [ "nix-command" "flakes" ];
             flake-registry = "";
             nix-path = config.nix.nixPath;
             extra-substituters = [
+              "https://nix-community.cachix.org"
+              "https://hyprland.cachix.org"
+              "https://devenv.cachix.org"
               "https://noctalia.cachix.org"
+              "https://cache.nixos-cuda.org"
             ];
             extra-trusted-public-keys = [
+              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+              "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+              "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
               "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+              "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
             ];
           };
           channel.enable = false;

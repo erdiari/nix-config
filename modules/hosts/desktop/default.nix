@@ -23,9 +23,8 @@
 
     networking.hostName = "desktop";
 
-    boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/sda";
-    boot.loader.grub.useOSProber = true;
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
 
     hardware.nvidia-container-toolkit.enable = true;
     virtualisation.docker.daemon.settings.features.cdi = true;
@@ -40,6 +39,7 @@
       cnijfilter2
       cups-zj-58
     ];
+    hardware.sane.enable = true;
 
     hardware.nvidia = {
       modesetting.enable = true;
@@ -50,7 +50,10 @@
       package = config.boot.kernelPackages.nvidiaPackages.production;
     };
 
-    environment.systemPackages = with pkgs; [ cudaPackages.cudatoolkit ];
+    environment.systemPackages = with pkgs; [
+      cudaPackages.cudatoolkit
+      simple-scan
+    ];
 
     services.samba = {
       enable = true;
