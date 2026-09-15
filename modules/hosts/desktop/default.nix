@@ -23,8 +23,10 @@
 
     networking.hostName = "desktop";
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.grub = {
+      enable = true;
+      device = "/dev/sda";
+    };
 
     hardware.nvidia-container-toolkit.enable = true;
     virtualisation.docker.daemon.settings.features.cdi = true;

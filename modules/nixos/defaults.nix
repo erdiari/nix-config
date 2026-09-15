@@ -122,10 +122,9 @@
         LC_TIME = "tr_TR.UTF-8";
       };
 
-      services.xserver.enable = true;
-      services.displayManager = {
+      services.displayManager.noctalia-greeter = {
         enable = true;
-        sddm.enable = true;
+        settings.keyboard.layout = "tr";
       };
 
       services.desktopManager.plasma6.enable = true;
