@@ -39,10 +39,7 @@
 
     environment.systemPackages = with pkgs; [
       hyprland
-      hyprpaper
-      playerctl
       xwayland
-      dunst
       rofi
       bemoji
       rofi-rbw-wayland
@@ -50,7 +47,6 @@
       pinentry-gnome3
       gcr_4
       kitty
-      networkmanagerapplet
     ];
   };
 }

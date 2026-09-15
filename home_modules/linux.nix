@@ -31,8 +31,6 @@
       devenv
       nodejs_22
       pnpm
-      grim
-      slurp
       wl-clipboard
       flatpak
       deadbeef
