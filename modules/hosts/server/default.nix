@@ -13,6 +13,8 @@
   flake.nixosModules.serverConfiguration = { pkgs, ... }: {
     imports = [ ./_hardware-configuration.nix ];
 
+    nixpkgs.config.allowUnfree = true;
+
     networking.hostName = "home-boy";
     networking.networkmanager.enable = true;
     networking.interfaces.enp30s0.wakeOnLan.enable = true;
@@ -23,6 +25,12 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.enable = false;
+
+    services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.nvidia = {
+      open = false;
+      modesetting.enable = true;
+    };
 
     users.users.erd = {
       isNormalUser = true;
