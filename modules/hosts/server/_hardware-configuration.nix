@@ -4,35 +4,30 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules =
-    [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/431623d5-bd12-4a53-a051-c7e6789d3725";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/d89328c9-0fdf-4fc6-96e9-ef6967d975bf";
+      fsType = "ext4";
+    };
 
-  fileSystems."/mnt/depo_1" = {
-    device = "/dev/disk/by-uuid/3531f8b1-e82e-401b-b897-7e3325e08ccf";
-    fsType = "ext4";
-  };
-
-  fileSystems."/mnt/nvme" = {
-    device = "/dev/disk/by-uuid/ce2c5440-f2df-44ad-b9c1-e27255982a33";
-    fsType = "ext4";
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/CBD0-E60E";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/f950f24e-4c37-47ae-ab5f-7e96f1ef1f5f"; }];
-
-  networking.useDHCP = lib.mkDefault true;
+    [ { device = "/dev/disk/by-uuid/729c44a5-7750-42e6-bd57-bd6c9788eaeb"; }
+    ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

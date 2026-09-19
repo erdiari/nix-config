@@ -13,19 +13,18 @@
   flake.nixosModules.serverConfiguration = { ... }: {
     imports = [ ./_hardware-configuration.nix ];
 
-    networking.hostName = "server";
+    networking.hostName = "nixos";
+    networking.networkmanager.enable = true;
 
-    boot.loader.grub = {
-      enable = true;
-      device = "/dev/sda";
-    };
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
 
     users.users.erd = {
       isNormalUser = true;
       description = "erd";
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" ];
     };
 
-    system.stateVersion = "24.11";
+    system.stateVersion = "26.05";
   };
 }
