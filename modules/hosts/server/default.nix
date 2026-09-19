@@ -32,6 +32,7 @@
 
     environment.systemPackages = with pkgs; [
       curl
+      ethtool
       git
       htop
       tmux
