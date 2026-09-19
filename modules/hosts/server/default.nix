@@ -15,6 +15,8 @@
 
     networking.hostName = "home-boy";
     networking.networkmanager.enable = true;
+    networking.interfaces.enp30s0.wakeOnLan.enable = true;
+
 
     services.tailscale.extraUpFlags = [ "--ssh" "--hostname=home-boy" ];
 

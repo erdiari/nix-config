@@ -1,7 +1,7 @@
 { ... }:
 let
   headlessServer =
-    { pkgs, ... }:
+    { ... }:
     {
       services.tailscale = {
         enable = true;
@@ -9,10 +9,6 @@ let
       };
 
       networking.firewall.trustedInterfaces = [ "tailscale0" ];
-
-      services.udev.extraRules = ''
-        ACTION=="add", SUBSYSTEM=="net", KERNEL!="lo", ATTR{type}=="1", RUN+="${pkgs.ethtool}/bin/ethtool -s $name wol g"
-      '';
     };
 in
 {
