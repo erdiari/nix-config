@@ -13,7 +13,7 @@
   flake.nixosModules.serverConfiguration = { ... }: {
     imports = [ ./_hardware-configuration.nix ];
 
-    networking.hostName = "nixos";
+    networking.hostName = "home-boy";
     networking.networkmanager.enable = true;
 
     boot.loader.systemd-boot.enable = true;
