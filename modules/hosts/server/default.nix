@@ -10,7 +10,7 @@
     ];
   };
 
-  flake.nixosModules.serverConfiguration = { ... }: {
+  flake.nixosModules.serverConfiguration = { pkgs, ... }: {
     imports = [ ./_hardware-configuration.nix ];
 
     networking.hostName = "home-boy";
@@ -27,6 +27,15 @@
       description = "erd";
       extraGroups = [ "networkmanager" "wheel" ];
     };
+
+    environment.systemPackages = with pkgs; [
+      curl
+      git
+      htop
+      tmux
+      vim
+      wget
+    ];
 
     system.stateVersion = "26.05";
   };
