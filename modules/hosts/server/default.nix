@@ -16,6 +16,8 @@
     networking.hostName = "home-boy";
     networking.networkmanager.enable = true;
 
+    services.tailscale.extraUpFlags = [ "--ssh" "--hostname=home-boy" ];
+
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.enable = false;

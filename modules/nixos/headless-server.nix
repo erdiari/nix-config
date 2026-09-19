@@ -6,7 +6,6 @@ let
       services.tailscale = {
         enable = true;
         openFirewall = true;
-        extraUpFlags = [ "--ssh" ];
       };
 
       networking.firewall.trustedInterfaces = [ "tailscale0" ];
