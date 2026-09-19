@@ -14,11 +14,12 @@
       self.nixosModules.stylix
       self.nixosModules.noctalia
       self.nixosModules.hyperland
+      self.nixosModules.kernelSchedulers
       self.nixosModules.desktopConfiguration
     ];
   };
 
-  flake.nixosModules.desktopConfiguration = { config, pkgs, lib, ... }: {
+  flake.nixosModules.desktopConfiguration = { config, pkgs, ... }: {
     imports = [ ./_hardware-configuration.nix ];
 
     networking.hostName = "desktop";
