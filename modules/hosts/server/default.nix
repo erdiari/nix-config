@@ -52,6 +52,7 @@
       ethtool
       git
       htop
+      nzbget
       tmux
       vim
       wget
