@@ -10,7 +10,7 @@
     ];
   };
 
-  flake.nixosModules.serverConfiguration = { pkgs, ... }: {
+  flake.nixosModules.serverConfiguration = { config, pkgs, ... }: {
     imports = [
       ./_hardware-configuration.nix
       ./_immich.nix
@@ -33,6 +33,7 @@
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
       open = false;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
       modesetting.enable = true;
     };
 
