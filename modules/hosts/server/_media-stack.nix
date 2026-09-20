@@ -146,10 +146,59 @@ in
     };
   };
 
+  nix.settings = {
+    extra-substituters = [ "https://cache.flox.dev" ];
+    extra-trusted-public-keys = [
+      "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+    ];
+  };
+  nixpkgs.config.cudaSupport = true;
+
   services.jellyfin = {
     enable = true;
     group = "media";
     openFirewall = true;
+
+    # Reapply Nix settings on every start, including existing installations.
+    forceEncodingConfig = true;
+    hardwareAcceleration = {
+      enable = true;
+      type = "nvenc";
+      device = "/dev/dri/renderD128";
+    };
+    transcoding = {
+      enableHardwareEncoding = true;
+      # GTX 1060 (Pascal): https://developer.nvidia.com/video-encode-decode-support-matrix
+      hardwareDecodingCodecs = {
+        h264 = true;
+        hevc = true;
+        hevc10bit = true;
+        mpeg2 = true;
+        vc1 = true;
+        # This module cannot disable Jellyfin's default VP9 10-bit decoding,
+        # which the GTX 1060 lacks; keep VP9 on software decoding.
+        vp9 = false;
+        vp8 = false;
+        av1 = false;
+        hevcRExt10bit = false;
+        hevcRExt12bit = false;
+      };
+      hardwareEncodingCodecs = {
+        hevc = true;
+        av1 = false;
+      };
+    };
+  };
+
+  systemd.services.jellyfin.serviceConfig = {
+    SupplementaryGroups = [ "video" "render" ];
+    # The module allows only the DRM device; NVENC/NVDEC also need NVIDIA nodes.
+    DeviceAllow = [
+      "/dev/nvidia0 rw"
+      "/dev/nvidiactl rw"
+      "/dev/nvidia-uvm rw"
+      "/dev/nvidia-uvm-tools rw"
+    ];
   };
 
   services.seerr = {
