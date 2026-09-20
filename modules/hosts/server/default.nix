@@ -14,6 +14,7 @@
     imports = [
       ./_hardware-configuration.nix
       ./_immich.nix
+      ./_media-stack.nix
     ];
 
     nixpkgs.config.allowUnfree = true;
@@ -38,7 +39,7 @@
     users.users.erd = {
       isNormalUser = true;
       description = "erd";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "media" ];
     };
 
     services.displayManager.autoLogin = {
