@@ -10,7 +10,7 @@ let
     Downloads\\TempPathEnabled=true
     WebUI\\Address=*
   '';
-  base_url = "http://localhost";
+  base_url = "http://home-boy.bandicoot-wyrm.ts.net";
 in
 {
   fileSystems."/mnt/media" = {
