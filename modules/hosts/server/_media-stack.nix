@@ -134,6 +134,18 @@ in
     serviceConfig.UMask = "0077";
   };
 
+  services.nzbget = {
+    enable = true;
+    group = "media";
+    settings = {
+      ControlIP = "0.0.0.0";
+      ControlPort = 6789;
+      DestDir = "/mnt/media/downloads/complete";
+      InterDir = "/mnt/media/downloads/incomplete";
+    };
+  };
+
+
   services.jellyfin = {
     enable = true;
     group = "media";
@@ -211,6 +223,12 @@ in
               description = "Download client";
             };
           }
+          {
+            NZBGet = {
+              href = "http://100.112.172.31:6789";
+              description = "Usenet download client";
+            };
+          }
         ];
       }
     ];
@@ -230,7 +248,7 @@ in
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 8090 ];
+    allowedTCPPorts = [ 6789 8090 ];
     allowedUDPPorts = [ 51413 ];
   };
 }
