@@ -132,7 +132,7 @@ in
         ${pkgs.coreutils}/bin/install -Dm600 ${qbittorrentConfig} /var/lib/qBittorrent/qBittorrent/config/qBittorrent.conf
       fi
     '';
-    serviceConfig.UMask = "0077";
+    serviceConfig.UMask = "0002";
   };
 
   services.nzbget = {
