@@ -30,6 +30,7 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.enable = false;
 
+    hardware.graphics.enable = true;
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
       open = false;
@@ -43,10 +44,7 @@
       extraGroups = [ "networkmanager" "wheel" "media" ];
     };
 
-    services.displayManager.autoLogin = {
-      enable = true;
-      user = "erd";
-    };
+    services.getty.autologinUser = "erd";
 
     environment.systemPackages = with pkgs; [
       curl
