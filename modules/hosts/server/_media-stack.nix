@@ -10,6 +10,7 @@ let
     Downloads\\TempPathEnabled=true
     WebUI\\Address=*
   '';
+  base_url = "http://localhost";
 in
 {
   fileSystems."/mnt/media" = {
@@ -145,7 +146,6 @@ in
     };
   };
 
-
   services.jellyfin = {
     enable = true;
     group = "media";
@@ -167,14 +167,20 @@ in
         Media = [
           {
             Jellyfin = {
-              href = "http://100.112.172.31:8096";
+              href = "${base_url}:8096";
               description = "Media streaming";
             };
           }
           {
             Seerr = {
-              href = "http://100.112.172.31:5055";
+              href = "${base_url}:5055";
               description = "Media requests";
+            };
+          }
+          {
+            Immich = {
+              href = "${base_url}:2283";
+              description = "Image Library";
             };
           }
         ];
@@ -183,49 +189,49 @@ in
         Automation = [
           {
             Sonarr = {
-              href = "http://100.112.172.31:8989";
+              href = "${base_url}:8989";
               description = "TV series";
             };
           }
           {
             Radarr = {
-              href = "http://100.112.172.31:7878";
+              href = "${base_url}:7878";
               description = "Movies";
             };
           }
           {
             Lidarr = {
-              href = "http://100.112.172.31:8686";
+              href = "${base_url}:8686";
               description = "Music automation";
             };
           }
           {
             Mylar = {
-              href = "http://100.112.172.31:8090";
+              href = "${base_url}:8090";
               description = "Comic automation";
             };
           }
           {
             Bazarr = {
-              href = "http://100.112.172.31:6767";
+              href = "${base_url}:6767";
               description = "Subtitles";
             };
           }
           {
             Prowlarr = {
-              href = "http://100.112.172.31:9696";
+              href = "${base_url}:9696";
               description = "Indexer management";
             };
           }
           {
             qBittorrent = {
-              href = "http://100.112.172.31:8080";
+              href = "${base_url}:8080";
               description = "Download client";
             };
           }
           {
             NZBGet = {
-              href = "http://100.112.172.31:6789";
+              href = "${base_url}:6789";
               description = "Usenet download client";
             };
           }
@@ -248,7 +254,10 @@ in
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 6789 8090 ];
+    allowedTCPPorts = [
+      6789
+      8090
+    ];
     allowedUDPPorts = [ 51413 ];
   };
 }
