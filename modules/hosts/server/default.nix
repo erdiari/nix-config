@@ -22,7 +22,10 @@
     time.timeZone = "Europe/Istanbul";
 
     nix = {
-      settings.experimental-features = [ "nix-command" "flakes" ];
+      settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       gc = {
         automatic = true;
         dates = "Sun 03:15";
@@ -55,7 +58,9 @@
       upgrade = false; # Flake inputs are refreshed explicitly below, not via channels.
       flags = [
         "--accept-flake-config"
-        "--override-input" "nixpkgs" "github:nixos/nixpkgs/nixos-unstable"
+        "--override-input"
+        "nixpkgs"
+        "github:nixos/nixpkgs/nixos-unstable"
         "--no-write-lock-file"
       ];
       dates = "04:40";
@@ -80,8 +85,10 @@
     networking.networkmanager.enable = true;
     networking.interfaces.enp30s0.wakeOnLan.enable = true;
 
-
-    services.tailscale.extraUpFlags = [ "--ssh" "--hostname=home-boy" ];
+    services.tailscale.extraUpFlags = [
+      "--ssh"
+      "--hostname=home-boy"
+    ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.systemd-boot.configurationLimit = 10;
@@ -99,8 +106,14 @@
     users.users.erd = {
       isNormalUser = true;
       description = "erd";
-      extraGroups = [ "networkmanager" "wheel" "media" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "media"
+      ];
     };
+
+    services.getty.autologinUser = "erd";
 
     environment.systemPackages = with pkgs; [
       curl
