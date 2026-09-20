@@ -15,7 +15,6 @@ let
       schedulerKernels = {
         schedExt = cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
         bore = cachyosKernels.linuxPackages-cachyos-bore-lto-x86_64-v3;
-        bmq = linuxPackagesFor (v3Lto "linux-cachyos-bmq-lto-x86_64-v3" cachyosKernels.linux-cachyos-bmq);
         rt = linuxPackagesFor (
           v3Lto "linux-cachyos-rt-bore-lto-x86_64-v3" cachyosKernels.linux-cachyos-rt-bore
         );
@@ -35,11 +34,6 @@ let
       specialisation = {
         bore.configuration = {
           boot.kernelPackages = lib.mkForce schedulerKernels.bore;
-          services.scx.enable = lib.mkForce false;
-        };
-
-        bmq.configuration = {
-          boot.kernelPackages = lib.mkForce schedulerKernels.bmq;
           services.scx.enable = lib.mkForce false;
         };
 

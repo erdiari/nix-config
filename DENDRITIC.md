@@ -109,9 +109,9 @@ structural migration:
   applied.
 - The normal desktop kernel remains the x86-64-v3 ThinLTO CachyOS kernel with
   `services.scx.scheduler = "scx_lavd"`.
-- The `bore`, `bmq`, and `rt` specialisations remain available and disable
-  `services.scx`; BMQ cannot run sched-ext, and the RT variant is deliberately
-  kept separate.
+- The `bore` and `rt` specialisations remain available and disable
+  `services.scx`; the BMQ variant is unavailable because CachyOS's current
+  BMQ patch does not apply to its packaged kernel source.
 - NVIDIA continues to obtain its package from
   `config.boot.kernelPackages`, so every selected kernel gets a matching module.
 

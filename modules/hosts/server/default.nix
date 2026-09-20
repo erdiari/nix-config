@@ -11,7 +11,10 @@
   };
 
   flake.nixosModules.serverConfiguration = { pkgs, ... }: {
-    imports = [ ./_hardware-configuration.nix ];
+    imports = [
+      ./_hardware-configuration.nix
+      ./_immich.nix
+    ];
 
     nixpkgs.config.allowUnfree = true;
 
@@ -38,6 +41,11 @@
       extraGroups = [ "networkmanager" "wheel" ];
     };
 
+    services.displayManager.autoLogin = {
+      enable = true;
+      user = "erd";
+    };
+
     environment.systemPackages = with pkgs; [
       curl
       ethtool
@@ -47,6 +55,19 @@
       vim
       wget
     ];
+
+    services.nfs.server = {
+      enable = true;
+      exports = ''
+        /home/erd/share 100.120.62.91(rw,sync,no_subtree_check,root_squash)
+      '';
+    };
+
+    systemd.tmpfiles.settings.homeBoyShare."/home/erd/share"."d" = {
+      mode = "2775";
+      user = "erd";
+      group = "users";
+    };
 
     system.stateVersion = "26.05";
   };

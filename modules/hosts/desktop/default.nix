@@ -72,6 +72,19 @@
       };
     };
 
+    fileSystems."/mnt/home-boy" = {
+      device = "home-boy:/home/erd/share";
+      fsType = "nfs4";
+      options = [
+        "_netdev"
+        "noauto"
+        "nofail"
+        "x-systemd.automount"
+        "x-systemd.idle-timeout=600"
+        "nconnect=8"
+      ];
+    };
+
     system.stateVersion = "24.11";
   };
 }
