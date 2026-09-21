@@ -12,6 +12,7 @@
 
   flake.nixosModules.serverConfiguration = { config, pkgs, ... }: {
     imports = [
+      ./_cooling.nix
       ./_hardware-configuration.nix
       ./_immich.nix
       ./_media-stack.nix
