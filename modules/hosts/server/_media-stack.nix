@@ -113,6 +113,45 @@ in
     extraOptions = [ "--network=host" ];
   };
 
+  # API keys live outside the nix store: /var/lib/swaparr/<platform>.env,
+  # each containing a single `APIKEY=...` line copied from the matching *arr's
+  # Settings > General page.
+  systemd.tmpfiles.settings.swaparr."/var/lib/swaparr"."d" = {
+    mode = "0700";
+    user = "root";
+    group = "root";
+  };
+
+  virtualisation.oci-containers.containers.swaparr-sonarr = {
+    image = "ghcr.io/thijmengthn/swaparr:latest";
+    environment = {
+      BASEURL = "http://127.0.0.1:8989";
+      PLATFORM = "sonarr";
+    };
+    environmentFiles = [ "/var/lib/swaparr/sonarr.env" ];
+    extraOptions = [ "--network=host" ];
+  };
+
+  virtualisation.oci-containers.containers.swaparr-radarr = {
+    image = "ghcr.io/thijmengthn/swaparr:latest";
+    environment = {
+      BASEURL = "http://127.0.0.1:7878";
+      PLATFORM = "radarr";
+    };
+    environmentFiles = [ "/var/lib/swaparr/radarr.env" ];
+    extraOptions = [ "--network=host" ];
+  };
+
+  virtualisation.oci-containers.containers.swaparr-lidarr = {
+    image = "ghcr.io/thijmengthn/swaparr:latest";
+    environment = {
+      BASEURL = "http://127.0.0.1:8686";
+      PLATFORM = "lidarr";
+    };
+    environmentFiles = [ "/var/lib/swaparr/lidarr.env" ];
+    extraOptions = [ "--network=host" ];
+  };
+
   services.bazarr = {
     enable = true;
     group = "media";
