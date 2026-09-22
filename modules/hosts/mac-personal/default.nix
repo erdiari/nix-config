@@ -1,26 +1,27 @@
-{ self, inputs, ... }: {
-  flake.darwinConfigurations.mac-intel = inputs.nix-darwin.lib.darwinSystem {
-    system = "x86_64-darwin";
+{ self, inputs, ... }:
+{
+  flake.darwinConfigurations.mac-personal = inputs.nix-darwin.lib.darwinSystem {
+    system = "aarch64-darwin";
     specialArgs = {
       inherit inputs;
       unstable-pkgs = import inputs.nixpkgs-unstable {
-        system = "x86_64-darwin";
+        system = "aarch64-darwin";
         config.allowUnfree = true;
       };
     };
     modules = [
       { nixpkgs.config.allowUnfree = true; }
-      self.nixosModules.darwinDefaults
-      self.nixosModules.macPersonalConfiguration
+      self.darwinModules.darwinDefaults
+      self.darwinModules.macPersonalConfiguration
+      self.darwinModules.homebrew
     ];
   };
 
-  flake.nixosModules.macPersonalConfiguration = { ... }: {
-    system.primaryUser = "erd";
+  flake.darwinModules.macPersonalConfiguration =
+    { ... }:
+    {
+      system.primaryUser = "erd";
 
-    users.users.vngrs = {
-      name = "erd";
-      home = "/Users/erd";
+      users.users.erd.home = "/Users/erd";
     };
-  };
 }
