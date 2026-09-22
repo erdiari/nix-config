@@ -13,6 +13,10 @@
 
         brews = [ "omp" ];
 
+        # Bitwarden desktop provides the SSH agent socket consumed by
+        # modules/home/ssh.nix; nixpkgs has no darwin bitwarden-desktop.
+        casks = [ "bitwarden" ];
+
         onActivation = {
           autoUpdate = true;
           upgrade = true;

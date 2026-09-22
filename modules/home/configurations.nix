@@ -59,6 +59,7 @@ in
     graphical
     ++ [
       self.homeModules.darwinApps
+      self.homeModules.ssh
       (user "erd" "/Users/erd" "~/Projects/nix-config#mac-personal")
     ]
   );
