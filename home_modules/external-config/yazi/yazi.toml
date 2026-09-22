@@ -1,37 +1,37 @@
 [plugin]  
 prepend_previewers = [  
   # Rich Previewer config
-  { name = "*.csv", run = "rich-preview"}, # for csv files
-  { name = "*.tsv", run = "rich-preview"}, # for csv files
-  { name = "*.md", run = "rich-preview" }, # for markdown (.md) files
-  { name = "*.rst", run = "rich-preview"}, # for restructured text (.rst) files
-  { name = "*.ipynb", run = "rich-preview"}, # for jupyter notebooks (.ipynb)
-  { name = "*.json", run = "rich-preview"}, # for json (.json) files
-  { name = "*.toml", run = "rich-preview"}, # for toml (.toml) files
-  { name = "*.yaml", run = "rich-preview"}, # for yaml (.yaml) files
-  { name = "*.py", run = "rich-preview"}, # for python (.py) files
-  { name = "*.nix", run = "rich-preview"}, # for nix (.nix) files
-  { name = "*.json", run = "rich-preview"}, # for json (.json) files
-  # { name = "*.lang_type", run = "rich-preview"} # for particular language files eg. .py, .go., .lua, etc.
+  { url = "*.csv", run = "rich-preview"}, # for csv files
+  { url = "*.tsv", run = "rich-preview"}, # for csv files
+  { url = "*.md", run = "rich-preview" }, # for markdown (.md) files
+  { url = "*.rst", run = "rich-preview"}, # for restructured text (.rst) files
+  { url = "*.ipynb", run = "rich-preview"}, # for jupyter notebooks (.ipynb)
+  { url = "*.json", run = "rich-preview"}, # for json (.json) files
+  { url = "*.toml", run = "rich-preview"}, # for toml (.toml) files
+  { url = "*.yaml", run = "rich-preview"}, # for yaml (.yaml) files
+  { url = "*.py", run = "rich-preview"}, # for python (.py) files
+  { url = "*.nix", run = "rich-preview"}, # for nix (.nix) files
+  { url = "*.json", run = "rich-preview"}, # for json (.json) files
+  # { url = "*.lang_type", run = "rich-preview"} # for particular language files eg. .py, .go., .lua, etc.
 
   # DuckDB Previewer config
-  # { name = "*.csv", run = "duckdb" },  
-  # { name = "*.tsv", run = "duckdb" },  
-  # { name = "*.json", run = "duckdb" },  
-  { name = "*.parquet", run = "duckdb" },  
-  { name = "*.prq", run = "duckdb" },  
-  { name = "*.xlsx", run = "duckdb" },  
-  { name = "*.db", run = "duckdb" },
-  { name = "*.duckdb", run = "duckdb" }
+  # { url = "*.csv", run = "duckdb" },  
+  # { url = "*.tsv", run = "duckdb" },  
+  # { url = "*.json", run = "duckdb" },  
+  { url = "*.parquet", run = "duckdb" },  
+  { url = "*.prq", run = "duckdb" },  
+  { url = "*.xlsx", run = "duckdb" },  
+  { url = "*.db", run = "duckdb" },
+  { url = "*.duckdb", run = "duckdb" }
 ]
 
 prepend_preloaders = [
-  # { name = "*.csv", run = "duckdb", multi = false },
-  # { name = "*.tsv", run = "duckdb", multi = false },
-  # { name = "*.json", run = "duckdb", multi = false },
-  { name = "*.parquet", run = "duckdb", multi = false },
-  { name = "*.prq", run = "duckdb", multi = false },  
-  { name = "*.xlsx", run = "duckdb", multi = false }
+  # { url = "*.csv", run = "duckdb", multi = false },
+  # { url = "*.tsv", run = "duckdb", multi = false },
+  # { url = "*.json", run = "duckdb", multi = false },
+  { url = "*.parquet", run = "duckdb", multi = false },
+  { url = "*.prq", run = "duckdb", multi = false },  
+  { url = "*.xlsx", run = "duckdb", multi = false }
 ]
 
 # Git Previewer Plugin
