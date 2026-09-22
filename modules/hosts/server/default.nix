@@ -5,12 +5,13 @@
     specialArgs = { inherit inputs; };
 
     modules = [
+      self.nixosModules.nixosDefaults
       self.nixosModules.headlessServer
       self.nixosModules.serverConfiguration
     ];
   };
 
-  flake.nixosModules.serverConfiguration = { config, pkgs, ... }: {
+  flake.nixosModules.serverConfiguration = { config, lib, pkgs, ... }: {
     imports = [
       ./_cooling.nix
       ./_hardware-configuration.nix
@@ -22,16 +23,13 @@
 
     time.timeZone = "Europe/Istanbul";
 
-    nix = {
-      settings.experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      gc = {
-        automatic = true;
-        dates = "Sun 03:15";
-        options = "--delete-older-than 30d";
-      };
+    # Server has more disk headroom than the desktop hosts; keep generations
+    # around longer and collect on a fixed weekly slot instead of the
+    # shared default.
+    nix.gc = {
+      automatic = true;
+      dates = lib.mkForce "Sun 03:15";
+      options = lib.mkForce "--delete-older-than 30d";
     };
 
     services.logrotate = {
@@ -64,7 +62,7 @@
         "github:nixos/nixpkgs/nixos-unstable"
         "--no-write-lock-file"
       ];
-      dates = "04:40";
+      dates = lib.mkForce "04:40";
       persistent = false; # Do not catch up on missed upgrades during daytime use.
       allowReboot = true;
       rebootWindow = {

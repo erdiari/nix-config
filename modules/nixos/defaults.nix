@@ -42,6 +42,15 @@
               "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
               "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
             ];
+            # Trusted users may use the flake's extra-substituters; without
+            # this the daemon ignores them for non-root callers (e.g.
+            # `home-manager switch`) and every uncached path builds from
+            # source.
+            trusted-users = [
+              "root"
+              "erd"
+            ];
+            auto-optimise-store = true;
           };
           channel.enable = false;
           registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
@@ -51,10 +60,6 @@
             dates = "weekly";
             options = "--delete-older-than 7d";
           };
-          extraOptions = ''
-            trusted-users = root erd
-          '';
-          settings.auto-optimise-store = true;
         };
 
       system.autoUpgrade = {

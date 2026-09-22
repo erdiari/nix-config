@@ -36,11 +36,11 @@ prepend_preloaders = [
 
 # Git Previewer Plugin
 [[plugin.prepend_fetchers]]
-id   = "git"
-name = "*"
+group = "git"
+url  = "*"
 run  = "git"
 
 [[plugin.prepend_fetchers]]
-id   = "git"
-name = "*/"
+group = "git"
+url  = "*/"
 run  = "git"
