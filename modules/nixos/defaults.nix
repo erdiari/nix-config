@@ -34,6 +34,9 @@
               "https://devenv.cachix.org"
               "https://noctalia.cachix.org"
               "https://cache.nixos-cuda.org"
+              # nix-cachyos-kernel's own cache; an input's nixConfig is never
+              # applied, so without this the CachyOS kernels build locally.
+              "https://attic.xuyh0120.win/lantian"
             ];
             extra-trusted-public-keys = [
               "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -41,6 +44,7 @@
               "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
               "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
               "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+              "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
             ];
             # Trusted users may use the flake's extra-substituters; without
             # this the daemon ignores them for non-root callers (e.g.
@@ -201,6 +205,7 @@
         podman-compose
         podman-tui
         cachix
+        ollama
       ];
 
       fonts.packages = with pkgs; [
@@ -222,6 +227,11 @@
           21027
         ];
         allowedTCPPorts = [ 22000 ];
+      };
+
+      services.ollama = {
+        enable = true;
+        package = pkgs.ollama;
       };
 
       environment.variables.EDITOR = "nvim";

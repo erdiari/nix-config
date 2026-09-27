@@ -20,6 +20,10 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    omp = {
+      url = "github:nklmilojevic/omp-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     herdr = {
       url = "github:herdrdev/herdr/v0.8.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,6 +44,9 @@
       "https://devenv.cachix.org"
       "https://noctalia.cachix.org"
       "https://cache.nixos-cuda.org"
+      # nix-cachyos-kernel's own cache; input nixConfig does not propagate,
+      # without this every CachyOS kernel is a local ThinLTO compile.
+      "https://attic.xuyh0120.win/lantian"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -47,6 +54,7 @@
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
   };
 

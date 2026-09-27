@@ -4,20 +4,12 @@ let
     { pkgs, lib, ... }:
     let
       cachyosKernels = pkgs.cachyosKernels;
-      linuxPackagesFor = pkgs.linuxKernel.packagesFor;
-      v3Lto =
-        pname: kernel:
-        kernel.override {
-          inherit pname;
-          lto = "thin";
-          processorOpt = "x86_64-v3";
-        };
       schedulerKernels = {
         schedExt = cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
         bore = cachyosKernels.linuxPackages-cachyos-bore-lto-x86_64-v3;
-        rt = linuxPackagesFor (
-          v3Lto "linux-cachyos-rt-bore-lto-x86_64-v3" cachyosKernels.linux-cachyos-rt-bore
-        );
+        # Upstream publishes no LTO/v3 rt-bore variant, so an overridden one
+        # misses every binary cache and costs a full local ThinLTO build.
+        rt = cachyosKernels.linuxPackages-cachyos-rt-bore;
       };
     in
     {
