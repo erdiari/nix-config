@@ -1,157 +1,8 @@
 { ... }:
 let
   shell =
-    { pkgs, unstable-pkgs, ... }:
+    { lib, pkgs, unstable-pkgs, ... }:
     {
-      inputs,
-      lib,
-      config,
-      pkgs,
-      unstable-pkgs,
-      ...
-    }:
-    {
-      imports = [
-        ../../home_modules/yazi.nix
-        inputs.omp.homeManagerModules.default
-      ];
-
-      programs.omp = {
-        enable = true;
-      };
-
-      nixpkgs = {
-        overlays = [ ];
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = _: true;
-        };
-      };
-
-      programs.firefox = {
-        enable = false;
-        policies = {
-          AutofillAddressEnabled = true;
-          AutofillCreditCardEnabled = false;
-          DisableAppUpdate = true;
-          DisableFeedbackCommands = true;
-          DisableFirefoxStudies = true;
-          DisablePocket = true;
-          DisableTelemetry = true;
-          DontCheckDefaultBrowser = true;
-          NoDefaultBookmarks = true;
-          OfferToSaveLogins = false;
-        };
-      };
-
-      home.packages =
-        with pkgs;
-        [
-          unstable-pkgs.claude-code
-          inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
-          ruff
-          cargo
-          rustc
-          nixfmt
-          nil
-          shfmt
-          shellcheck
-          unstable-pkgs.python3
-          uv
-          typst
-          mpv
-          gitui
-          ripgrep
-          fd
-          btop
-          bat
-          yt-dlp
-          pandoc
-          tectonic
-          ouch
-          eza
-          fzf
-          zoxide
-          lazygit
-          lazydocker
-          gnutar
-          gzip
-          bzip2
-          xz
-          zip
-          unzip
-          p7zip
-          unrar
-          zstd
-          file
-        ]
-        ++ (with unstable-pkgs; [
-          obsidian
-          neovim
-        ]);
-
-      home.sessionPath = [ "$HOME/.local/bin" ];
-
-      programs.home-manager.enable = true;
-      programs.git = {
-        enable = true;
-        lfs.enable = true;
-        settings.user = {
-          name = "Erdi ARI";
-          email = "me@erdiari.dev";
-        };
-      };
-
-      programs.starship = {
-        enable = true;
-        settings = {
-          add_newline = false;
-          gcloud.disabled = true;
-          line_break.disabled = true;
-        };
-      };
-
-      programs.kitty = {
-        enable = true;
-        shellIntegration.enableZshIntegration = true;
-        settings = {
-          confirm_os_window_close = 0;
-          dynamic_background_opacity = true;
-          enable_audio_bell = false;
-          mouse_hide_wait = "-1.0";
-          window_padding_width = 10;
-          font_family = "SauceCodePro Nerd Font";
-          font_size = 12;
-        };
-
-        extraConfig = ''
-          map ctrl+shift+w>h neighboring_window left
-          map ctrl+shift+w>l neighboring_window right
-          map ctrl+shift+w>j neighboring_window down
-          map ctrl+shift+w>k neighboring_window up
-
-          map ctrl+shift+w>shift+h move_window left
-          map ctrl+shift+w>shift+l move_window right
-          map ctrl+shift+w>shift+j move_window down
-          map ctrl+shift+w>shift+k move_window up
-
-          map ctrl+shift+w>s launch --location=hsplit
-          map ctrl+shift+w>v launch --location=vsplit
-
-          scrollback_pager nvim --noplugin -c 'set buftype=nofile' -c 'set noswapfile' -c 'silent! %s/\%x1b\[[0-9;]*[sumJK]//g' -c 'silent! %s/\%x1b]133;[A-Z]\%x1b\\//g' -c 'silent! %s/\%x1b\[[^m]*m//g' -c 'silent! %s///g' -
-        '';
-      };
-
-      programs.fzf = {
-        enable = true;
-        enableZshIntegration = true;
-      };
-
-      programs.nushell = {
-        enable = true;
-        package = unstable-pkgs.nushell;
-      };
-
       programs.zsh = {
         enable = true;
         enableCompletion = true;
@@ -168,7 +19,8 @@ let
           la = "ls -al";
         };
 
-        initContent = ''
+        initContent = lib.mkMerge [
+        ''
           eval "$(zoxide init zsh)"
 
 
@@ -270,7 +122,14 @@ let
                   return 1
               fi
           }
-        '';
+        ''
+        # Machine-local, unmanaged overrides; sourced after everything else.
+        (lib.mkOrder 1500 ''
+          if [[ -r "''${ZDOTDIR:-$HOME}/.zshrc.local" ]]; then
+            source "''${ZDOTDIR:-$HOME}/.zshrc.local"
+          fi
+        '')
+        ];
 
         plugins = with pkgs; [
           {

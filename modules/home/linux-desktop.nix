@@ -1,11 +1,7 @@
 { inputs, ... }:
 let
   linuxDesktop =
-    {
-      pkgs,
-      unstable-pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       imports = [ inputs.self.modules.homeManager.noctalia ];
 
@@ -17,32 +13,27 @@ let
 
       programs.gh.enable = true;
 
-      home.packages =
-        with pkgs;
-        [
-          yaak
-          geany
-          kdePackages.dolphin
-          devenv
-          nodejs_22
-          pnpm
-          wl-clipboard
-          flatpak
-          deadbeef
-          tilix
-          ueberzugpp
-          cliphist
-          brightnessctl
-          poweralertd
-          libreoffice-qt6-fresh
-          steam-run
-          gamemode
-          mangohud
-          (callPackage inputs.creamlinux-installer { })
-        ]
-        ++ (with unstable-pkgs; [
-          heroic
-        ]);
+      home.packages = with pkgs; [
+        yaak
+        geany
+        kdePackages.dolphin
+        devenv
+        fnm
+        pnpm
+        wl-clipboard
+        flatpak
+        deadbeef
+        tilix
+        ueberzugpp
+        cliphist
+        brightnessctl
+        poweralertd
+        libreoffice-qt6-fresh
+        steam-run
+        gamemode
+        mangohud
+        (callPackage inputs.creamlinux-installer { })
+      ];
 
       home.file.".config/hypr" = {
         source = ../../home_modules/external-config/hypr;

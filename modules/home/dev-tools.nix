@@ -1,17 +1,27 @@
 { inputs, ... }:
 let
   devTools =
-    { pkgs, unstable-pkgs, ... }:
+    {
+      lib,
+      pkgs,
+      unstable-pkgs,
+      ...
+    }:
     let
       ompConfig = (pkgs.formats.yaml { }).generate "omp-config.yml" {
         startup.quiet = true;
       };
     in
     {
-      # omp itself is installed by Homebrew (see modules/darwin/homebrew.nix);
-      # only its config is managed here. omp rewrites this file at runtime and
+      imports = [ inputs.omp.homeManagerModules.default ];
+
+      # On Linux omp comes from the omp flake and owns its own config.yml.
+      # On darwin Homebrew installs it (see modules/darwin/homebrew.nix) and
+      # its config is managed here. omp rewrites this file at runtime and
       # locks it first, so it must be a writable copy, not a store symlink.
-      home.activation.ompConfig = {
+      programs.omp.enable = pkgs.stdenv.hostPlatform.isLinux;
+
+      home.activation.ompConfig = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
         before = [ ];
         after = [ "writeBoundary" ];
         data = ''
@@ -24,7 +34,6 @@ let
         with pkgs;
         [
           unstable-pkgs.claude-code
-          unstable-pkgs.pi-coding-agent
           inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
           unstable-pkgs.python3
           cargo

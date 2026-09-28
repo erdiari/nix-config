@@ -154,8 +154,6 @@
     },
     "flake-parts_3": {
       "inputs": {
-<<<<<<< HEAD
-=======
         "nixpkgs-lib": "nixpkgs-lib_3"
       },
       "locked": {
@@ -174,7 +172,6 @@
     },
     "flake-parts_4": {
       "inputs": {
->>>>>>> b7f40d7 (flake update + ollama added)
         "nixpkgs-lib": [
           "stylix",
           "nixpkgs"
@@ -421,22 +418,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1787360063,
-        "narHash": "sha256-dt4WdcvsA8/RCe+VZZwqU0X+XMM3wBbGCWA0/sFWzGo=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "2c423e03bbafcff28bfadc6781a4a8257f205cb5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -482,12 +463,12 @@
         "type": "github"
       }
     },
-<<<<<<< HEAD
-=======
     "omp": {
       "inputs": {
         "flake-parts": "flake-parts_3",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1790517485,
@@ -503,7 +484,6 @@
         "type": "github"
       }
     },
->>>>>>> b7f40d7 (flake update + ollama added)
     "root": {
       "inputs": {
         "creamlinux-installer": "creamlinux-installer",
@@ -516,6 +496,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "noctalia": "noctalia",
+        "omp": "omp",
         "stylix": "stylix"
       }
     },
@@ -547,11 +528,7 @@
         "base16-helix": "base16-helix",
         "base16-vim": "base16-vim",
         "firefox-gnome-theme": "firefox-gnome-theme",
-<<<<<<< HEAD
-        "flake-parts": "flake-parts_3",
-=======
         "flake-parts": "flake-parts_4",
->>>>>>> b7f40d7 (flake update + ollama added)
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
           "nixpkgs"
