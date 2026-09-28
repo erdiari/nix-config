@@ -123,6 +123,7 @@
       tmux
       vim
       wget
+      fnm
     ];
 
     services.nfs.server = {
