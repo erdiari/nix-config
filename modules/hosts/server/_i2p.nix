@@ -9,6 +9,10 @@ in
     enable = true;
     settings = {
       port = routerPort;
+      # The LAN has global IPv6; it bypasses the IPv4 NAT, so inbound peers
+      # can reach the router without a port forward (if the ISP router's
+      # IPv6 firewall allows it).
+      ipv6 = true;
       bandwidth = "2048KBps";
 
       # Web console (7070), HTTP proxy (4444), SOCKS proxy (4447) listen on all
