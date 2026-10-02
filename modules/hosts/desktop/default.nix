@@ -58,6 +58,9 @@
       simple-scan
     ];
 
+    # pkgs.ollama ships CPU backends only; the CUDA build adds libggml-cuda.
+    services.ollama.package = pkgs.ollama-cuda;
+
     services.samba = {
       enable = true;
       openFirewall = true;

@@ -15,6 +15,7 @@
     imports = [
       ./_cooling.nix
       ./_hardware-configuration.nix
+      ./_i2p.nix
       ./_immich.nix
       ./_media-stack.nix
     ];

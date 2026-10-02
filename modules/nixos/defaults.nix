@@ -229,10 +229,7 @@
         allowedTCPPorts = [ 22000 ];
       };
 
-      services.ollama = {
-        enable = true;
-        package = pkgs.ollama;
-      };
+      services.ollama.enable = true;
 
       environment.variables.EDITOR = "nvim";
 
