@@ -45,14 +45,23 @@
           echo "$7" > "$hwmon/pwm''${pwm}_auto_point1_pwm"
         }
 
-        # CPU fan: off below 45 C, 100% at 95 C.
-        configure_pwm 2 45000 55000 70000 85000 95000 0 90 140 200 255
-        # Case fan (front intake): off below 50 C, 100% at 95 C; starts
-        # after the CPU fan has already stepped up once.
-        configure_pwm 3 50000 60000 75000 88000 95000 0 70 130 190 255
-        # Case fan (rear exhaust): off below 55 C, 100% at 95 C; staggered
-        # a notch above the intake fan so both don't kick in at once.
-        configure_pwm 4 55000 65000 78000 90000 95000 0 70 130 190 255
+        # Smart Fan IV (mode 5) has no hardware start-boost or stop-debounce
+        # of its own (those pwm_start/pwm_floor/pwm_stop_time attributes
+        # only apply to Thermal Cruise mode 2); a fan commanded straight
+        # from 0% to a low duty cycle can fail to overcome static friction
+        # and silently never spin up. So each curve jumps from 0% to a
+        # spin-safe ~43% within a narrow 2 C band instead of ramping
+        # through the dead zone, then climbs gently from there.
+
+        # CPU fan: off below 44 C, kicks to 43% by 46 C, 100% at 95 C.
+        configure_pwm 2 44000 46000 60000 80000 95000 0 110 150 200 255
+        # Case fan (front intake): off below 48 C, kicks to 43% by 50 C;
+        # starts after the CPU fan has already stepped up once.
+        configure_pwm 3 48000 50000 65000 82000 95000 0 110 150 200 255
+        # Case fan (rear exhaust): off below 52 C, kicks to 43% by 54 C;
+        # staggered a notch above the intake fan so both don't kick in at
+        # once.
+        configure_pwm 4 52000 54000 68000 84000 95000 0 110 150 200 255
 
         # Smart Fan IV runs in the controller, without a userspace daemon.
         echo 5 > "$hwmon/pwm2_enable"
