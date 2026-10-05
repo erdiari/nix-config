@@ -11,6 +11,7 @@
     modules = [
       { nixpkgs.config.allowUnfree = true; }
       self.nixosModules.nixosDefaults
+      self.nixosModules.desktopDefaults
       self.nixosModules.stylix
       self.nixosModules.noctalia
       self.nixosModules.hyperland
@@ -35,7 +36,6 @@
     hardware.graphics.enable = true;
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    services.printing.enable = true;
     services.printing.drivers = with pkgs; [
       gutenprint
       gutenprintBin

@@ -91,10 +91,6 @@
         };
       };
 
-      programs.kdeconnect = {
-        enable = true;
-      };
-
       networking.networkmanager.enable = true;
 
       programs.appimage = {
@@ -131,22 +127,8 @@
         LC_TIME = "tr_TR.UTF-8";
       };
 
-      services.displayManager.noctalia-greeter = {
-        enable = true;
-        settings.keyboard.layout = "tr";
-      };
-
-      services.desktopManager.plasma6.enable = true;
-      environment.plasma6.excludePackages = [ pkgs.kdePackages.ksshaskpass ];
-
-      services.xserver = {
-        xkb.layout = "tr";
-        xkb.variant = "";
-      };
-
       console.keyMap = "trq";
 
-      services.printing.enable = true;
       services.pulseaudio.enable = false;
 
       security.rtkit.enable = true;
@@ -237,18 +219,6 @@
         enable = true;
         openFirewall = true;
         useRoutingFeatures = "client";
-      };
-
-      programs.steam = {
-        enable = true;
-        gamescopeSession.enable = true;
-        remotePlay.openFirewall = true;
-        dedicatedServer.openFirewall = true;
-        localNetworkGameTransfers.openFirewall = true;
-      };
-      programs.gamescope = {
-        enable = true;
-        capSysNice = true;
       };
 
       programs.tmux = {

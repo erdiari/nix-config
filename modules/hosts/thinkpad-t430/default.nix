@@ -11,6 +11,7 @@
     modules = [
       { nixpkgs.config.allowUnfree = true; }
       self.nixosModules.nixosDefaults
+      self.nixosModules.desktopDefaults
       self.nixosModules.stylix
       self.nixosModules.noctalia
       self.nixosModules.hyperland
