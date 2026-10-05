@@ -3,6 +3,9 @@ let
   desktopDefaults =
     { pkgs, ... }:
     {
+      services.flatpak.enable = true;
+      xdg.portal.enable = true;
+
       programs.kdeconnect.enable = true;
 
       services.displayManager.noctalia-greeter = {
