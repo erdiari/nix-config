@@ -103,7 +103,7 @@ in
   services.flaresolverr.enable = true;
 
   virtualisation.oci-containers.containers.kapowarr = {
-    image = "mrcas/kapowarr:latest";
+    image = "docker.io/mrcas/kapowarr:latest";
     environment = {
       PUID = "1000";
       PGID = "993";
