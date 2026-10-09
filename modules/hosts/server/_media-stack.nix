@@ -61,7 +61,12 @@ in
       user = "root";
       group = "media";
     };
-    "/var/lib/mylar"."d" = {
+    "/mnt/media/downloads/kapowarr"."d" = {
+      mode = "2775";
+      user = "erd";
+      group = "media";
+    };
+    "/var/lib/kapowarr"."d" = {
       mode = "0770";
       user = "erd";
       group = "media";
@@ -97,18 +102,17 @@ in
 
   services.flaresolverr.enable = true;
 
-  virtualisation.oci-containers.containers.mylar = {
-    image = "lscr.io/linuxserver/mylar3:latest";
+  virtualisation.oci-containers.containers.kapowarr = {
+    image = "mrcas/kapowarr:latest";
     environment = {
       PUID = "1000";
       PGID = "993";
       TZ = "Europe/Istanbul";
-      UMASK = "002";
     };
     volumes = [
-      "/var/lib/mylar:/config"
+      "/var/lib/kapowarr:/app/db"
+      "/mnt/media/downloads/kapowarr:/app/temp_downloads"
       "/mnt/media/comics:/comics"
-      "/mnt/media/downloads:/downloads"
     ];
     extraOptions = [ "--network=host" ];
   };
@@ -294,8 +298,8 @@ in
             };
           }
           {
-            Mylar = {
-              href = "${base_url}:8090";
+            Kapowarr = {
+              href = "${base_url}:5656";
               description = "Comic automation";
             };
           }
@@ -344,7 +348,7 @@ in
   networking.firewall = {
     allowedTCPPorts = [
       6789
-      8090
+      5656
     ];
     allowedUDPPorts = [ 51413 ];
   };

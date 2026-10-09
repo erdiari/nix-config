@@ -24,7 +24,13 @@ in
         # reached via the tailnet hostname instead.
         strictheaders = false;
       };
-      httpproxy.address = "0.0.0.0";
+      httpproxy = {
+        address = "0.0.0.0";
+        # Clearnet hosts are otherwise rejected with 500 "outproxy is not
+        # enabled". Prowlarr's indexer-proxy test pings prowlarr.servarr.com
+        # through the proxy and refuses to save the proxy if that fails.
+        outproxy = "http://exit.stormycloud.i2p";
+      };
       socksproxy.address = "0.0.0.0";
     };
   };
