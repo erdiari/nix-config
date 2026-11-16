@@ -349,6 +349,7 @@ in
     allowedTCPPorts = [
       6789
       5656
+      3000
     ];
     allowedUDPPorts = [ 51413 ];
   };
